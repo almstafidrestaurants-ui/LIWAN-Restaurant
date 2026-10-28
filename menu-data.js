@@ -2,79 +2,79 @@ const sections = [
   {
     "id": "s1",
     "name": "لحومات",
-    "image": "images/menu/section-1.jpg",
+    "image": "images/menu/Grilled lamb chunks.webp",
     "items": [
       {
         "id": "s1-1",
         "name": "لحم شقف غنم مشوي",
         "price": 5,
-        "image": "images/menu/s1-1.jpg"
+        "image": "images/menu/Grilled lamb chunks.webp"
       },
       {
         "id": "s1-2",
         "name": "لحم كفتة غنم مشوي",
         "price": 5,
-        "image": "images/menu/s1-2.jpg"
+        "image": "images/menu/Grilled lamb kofta.webp"
       },
       {
         "id": "s1-3",
         "name": "لحم شقف عجل مشوي",
         "price": 5,
-        "image": "images/menu/s1-3.jpg"
+        "image": "images/menu/Grilled veal chunks.webp"
       },
       {
         "id": "s1-4",
         "name": "لحم كفتة عجل مشوي",
         "price": 5,
-        "image": "images/menu/s1-4.jpg"
+        "image": "images/menu/Grilled lamb kofta.webp"
       },
       {
         "id": "s1-5",
         "name": "منسف لحم",
         "price": 5,
-        "image": "images/menu/s1-5.jpg"
+        "image": "images/menu/Mansaf with meat.webp"
       },
       {
         "id": "s1-6",
         "name": "منسف جاج",
         "price": 5,
-        "image": "images/menu/s1-6.jpg"
+        "image": "images/menu/Mansaf with chicken.webp"
       },
       {
         "id": "s1-7",
         "name": "منسف فريكة",
         "price": 5,
-        "image": "images/menu/s1-7.jpg"
+        "image": "images/menu/Mansaf with freekeh.webp"
       },
       {
         "id": "s1-8",
         "name": "منسف مندي",
         "price": 5,
-        "image": "images/menu/s1-8.jpg"
+        "image": "images/menu/Mandi-style mansaf.webp"
       },
       {
         "id": "s1-9",
         "name": "كبة نية",
         "price": 5,
-        "image": "images/menu/s1-9.jpg"
+        "image": "images/menu/Kibbeh nayyeh (raw kibbeh).webp"
       },
       {
         "id": "s1-10",
         "name": "كبة مشوي على الفحم",
         "price": 5,
-        "image": "images/menu/s1-10.jpg"
+        "image": "images/menu/Charcoal-grilled kibbeh .webp"
       },
       {
         "id": "s1-11",
         "name": "كبة صينية",
         "price": 5,
-        "image": "images/menu/s1-11.jpg"
+        "image": "images/menu/Tray-baked kibbeh (kibbeh bil-siniyeh).webp"
       },
       {
         "id": "s1-12",
         "name": "صينية لحم بالفرن",
         "price": 5,
-        "image": "images/menu/s1-12.jpg"
+        "image": "images/menu/Oven-baked meat tray.webp"
       }
     ]
   },
