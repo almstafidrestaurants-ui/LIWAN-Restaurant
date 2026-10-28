@@ -246,6 +246,12 @@ const sections = [
         "name": "كوكتيل ليوان سبيشال",
         "price": 5.5,
         "image": "images/menu/Liwan Special Cocktail.webp"
+      },
+            {
+        "id": "s3-8",
+        "name": "كوكتيل  شقف",
+        "price":  5,
+        "image": "images/menu/Mixed fruit cocktail.webp"
       }
     ]
   },
