@@ -7,73 +7,73 @@ const sections = [
       {
         "id": "s1-1",
         "name": "لحم شقف غنم مشوي",
-        "price": 5,
+        "price": 25,
         "image": "images/menu/Grilled lamb chunks.webp"
       },
       {
         "id": "s1-2",
         "name": "لحم كفتة غنم مشوي",
-        "price": 5,
+        "price": 25,
         "image": "images/menu/Grilled lamb kofta.webp"
       },
       {
         "id": "s1-3",
         "name": "لحم شقف عجل مشوي",
-        "price": 5,
+        "price": 20,
         "image": "images/menu/Grilled veal chunks.webp"
       },
       {
         "id": "s1-4",
         "name": "لحم كفتة عجل مشوي",
-        "price": 5,
+        "price": 20,
         "image": "images/menu/Grilled lamb kofta.webp"
       },
       {
         "id": "s1-5",
         "name": "منسف لحم",
-        "price": 5,
+        "price": 20,
         "image": "images/menu/Mansaf with meat.webp"
       },
       {
         "id": "s1-6",
         "name": "منسف جاج",
-        "price": 5,
+        "price": 18,
         "image": "images/menu/Mansaf with chicken.webp"
       },
       {
         "id": "s1-7",
         "name": "منسف فريكة",
-        "price": 5,
+        "price": 25,
         "image": "images/menu/Mansaf with freekeh.webp"
       },
       {
         "id": "s1-8",
         "name": "منسف مندي",
-        "price": 5,
+        "price": 23,
         "image": "images/menu/Mandi-style mansaf.webp"
       },
       {
         "id": "s1-9",
         "name": "كبة نية",
-        "price": 5,
+        "price": 18,
         "image": "images/menu/Kibbeh nayyeh (raw kibbeh).webp"
       },
       {
         "id": "s1-10",
         "name": "كبة مشوي على الفحم",
-        "price": 5,
+        "price": 1,
         "image": "images/menu/Charcoal-grilled kibbeh .webp"
       },
       {
         "id": "s1-11",
         "name": "كبة صينية",
-        "price": 5,
+        "price": 25,
         "image": "images/menu/Tray-baked kibbeh (kibbeh bil-siniyeh).webp"
       },
       {
         "id": "s1-12",
         "name": "صينية لحم بالفرن",
-        "price": 5,
+        "price": 25,
         "image": "images/menu/Oven-baked meat tray.webp"
       }
     ]
