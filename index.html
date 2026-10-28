@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/>
+  <meta content="#0b0b0d" name="theme-color"/>
+  <title>
+   LIWAN | المنيو
+  </title>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+  <link href="style.css" rel="stylesheet"/>
+  <script defer="" src="menu-data.js">
+  </script>
+  <script defer="" src="script.js">
+  </script>
+ </head>
+ <body>
+  <main class="phone">
+   <section class="splash" id="splash">
+    <img alt="LIWAN" class="splash-logo" src="images/logo.png"/>
+    <div class="splash-center">
+     <div class="splash-line">
+     </div>
+     <p>
+      تجربة من عالم آخر
+     </p>
+     <h1>
+      كل نكهة
+      <em>
+       إلها حكاية
+      </em>
+     </h1>
+     <button id="explore">
+      اكتشف المنيو
+      <span>
+       ←
+      </span>
+     </button>
+    </div>
+   </section>
+   <section hidden="" id="home">
+    <header class="header">
+     <button aria-expanded="false" aria-label="القائمة" class="menu-toggle" id="menuToggle">
+      <span>
+      </span>
+      <span>
+      </span>
+      <span>
+      </span>
+     </button>
+     <img alt="LIWAN" class="header-logo" src="images/logo.png"/>
+     <button aria-label="سلة المشتريات" class="cart-top" id="cartTop">
+      <svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24" width="24">
+       <path d="m3 5 2 2 2.2 10.5h11.5L21 9H6">
+       </path>
+       <circle cx="9" cy="21" r="1">
+       </circle>
+       <circle cx="18" cy="21" r="1">
+       </circle>
+      </svg>
+      <span id="cartCount">
+       0
+      </span>
+     </button>
+    </header>
+    <div class="menu-panel" hidden="" id="menuPanel">
+     <button id="menuCategories">
+      الأقسام والمنيو
+     </button>
+     <button id="menuCart">
+      سلة المشتريات
+     </button>
+    </div>
+    <div class="heading">
+     <p>
+      أهلاً بكم في ليوان
+     </p>
+     <h1>
+      اكتشف قائمتنا
+     </h1>
+    </div>
+    <div class="search-wrap">
+     <span>
+      ⌕
+     </span>
+     <input aria-label="البحث عن صنف" autocomplete="off" id="search" placeholder="ابحث عن طبق أو مشروب..." type="search"/>
+    </div>
+    <nav aria-label="أقسام المنيو" class="tabs" id="tabs">
+    </nav>
+    <div class="section-head" id="sectionHead">
+    </div>
+    <div class="items" id="items">
+    </div>
+    <div class="footnote">
+     LIWAN · Restaurant &amp; Lounge
+    </div>
+    <div aria-live="polite" class="toast" hidden="" id="toast" role="status">
+     ✓ تمّت الإضافة إلى سلة المشتريات
+    </div>
+   </section>
+   <div class="drawer" hidden="" id="drawer">
+    <div class="drawer-shade" id="shade">
+    </div>
+    <section aria-label="سلة المشتريات" aria-modal="true" class="drawer-panel" role="dialog">
+     <div class="drawer-title">
+      <div>
+       <span class="drawer-kicker">
+        LIWAN RESTAURANT
+       </span>
+       <h2>
+        سلة المشتريات
+       </h2>
+      </div>
+      <button aria-label="إغلاق" id="closeCart">
+       ✕
+      </button>
+     </div>
+     <div id="cartItems">
+     </div>
+     <div class="total-row">
+      <strong>
+       Subtotal · مجموع الطلب
+      </strong>
+      <strong id="drawerTotal">
+       $0
+      </strong>
+     </div>
+     <button class="whatsapp" id="whatsapp">
+      تأكيد الطلب عبر واتساب ↗
+     </button>
+     <p class="site-help">
+      سيُفتح واتساب مع رسالة جاهزة؛ عليكِ الضغط على إرسال هناك.
+     </p>
+    </section>
+   </div>
+  </main>
+ </body>
+</html>
+
