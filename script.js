@@ -24,6 +24,25 @@
     let cart = {};
     let toastTimer;
     let splashTimer;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const revealObserver = !reducedMotion && 'IntersectionObserver' in window
+        ? new IntersectionObserver((entries, observer) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+            });
+        }, { rootMargin: '0px 0px 65px 0px', threshold: 0.05 })
+        : null;
+
+    function animateCartIcon() {
+        if (reducedMotion) return;
+        const button = $('cartTop');
+        button.classList.remove('cart-celebrate');
+        void button.offsetWidth;
+        button.classList.add('cart-celebrate');
+    }
+
 
     // Start with an empty cart on every new page load.
     try {
@@ -56,6 +75,7 @@
             // Keep the cart in memory if storage is blocked.
         }
         updateCartBadge();
+        animateCartIcon();
     }
 
     /* =========================================
@@ -115,13 +135,16 @@
 
         visibleProducts.forEach((product) => {
             const card = document.createElement('article');
-            card.className = 'item';
+            card.className = 'item' + (revealObserver ? ' reveal-card' : ' is-visible');
 
             const image = document.createElement('img');
             image.className = 'item-photo';
             image.src = product.image;
+            image.addEventListener('load', () => image.classList.add('image-ready'), { once: true });
             image.alt = product.name;
-            image.loading = 'lazy';
+            image.loading = visibleProducts.indexOf(product) < 2 ? 'eager' : 'lazy';
+            image.decoding = 'async';
+            if (visibleProducts.indexOf(product) < 2) image.fetchPriority = 'high';
             image.addEventListener('error', () => {
                 image.style.display = 'none';
             });
@@ -160,11 +183,17 @@
                 cart[product.id] = Math.min(99, (cart[product.id] || 0) + 1);
                 saveCart();
                 showToast();
+                if (!reducedMotion) {
+                    addButton.classList.remove('add-pop');
+                    void addButton.offsetWidth;
+                    addButton.classList.add('add-pop');
+                }
             });
 
             body.append(info, addButton);
             card.append(image, body);
             container.appendChild(card);
+            if (revealObserver) revealObserver.observe(card);
         });
     }
 
@@ -208,6 +237,8 @@
             image.className = 'cart-photo';
             image.src = product.image;
             image.alt = product.name;
+            image.loading = 'lazy';
+            image.decoding = 'async';
             image.addEventListener('error', () => {
                 image.style.visibility = 'hidden';
             });
@@ -259,11 +290,13 @@
 
     function openCart() {
         $('drawer').hidden = false;
+        document.body.classList.add('cart-is-open');
         renderCart();
     }
 
     function closeCart() {
         $('drawer').hidden = true;
+        document.body.classList.remove('cart-is-open');
     }
 
     /* =========================================
@@ -413,10 +446,22 @@
         renderMenu();
         updateCartBadge();
         window.scrollTo(0, 0);
+        updateReadingProgress();
     }
 
+    // Slim scroll indicator makes long menus easier to navigate.
+    function updateReadingProgress() {
+        const indicator = $('readingProgress');
+        if (!indicator || $('home').hidden) return;
+        const available = document.documentElement.scrollHeight - window.innerHeight;
+        const ratio = available > 0 ? Math.min(1, window.scrollY / available) : 0;
+        indicator.style.transform = 'scaleX(' + ratio + ')';
+    }
+    window.addEventListener('scroll', updateReadingProgress, { passive: true });
+    window.addEventListener('resize', updateReadingProgress, { passive: true });
+
     $('explore').addEventListener('click', showHome);
-    splashTimer = setTimeout(showHome, 6000);
+    splashTimer = setTimeout(showHome, 2600);
     updateCartBadge();
 
     window.LIWAN_TEST = {

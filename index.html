@@ -9,6 +9,8 @@
   </title>
   <link href="https://fonts.googleapis.com" rel="preconnect"/>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+  <link rel="preload" as="image" href="images/welcome.webp" fetchpriority="high"/>
+  <link rel="preload" as="image" href="images/logo.png"/>
   <link href="style.css" rel="stylesheet"/>
   <script defer="" src="menu-data.js">
   </script>
@@ -17,22 +19,23 @@
  </head>
  <body>
   <main class="phone">
+   <div class="reading-progress" id="readingProgress" aria-hidden="true"></div>
    <section class="splash" id="splash">
-    <img alt="LIWAN" class="splash-logo" src="images/logo.png"/>
+    <img alt="LIWAN" class="splash-logo" src="images/logo.png" decoding="async" fetchpriority="high"/>
     <div class="splash-center">
      <div class="splash-line">
      </div>
      <p>
-      تجربة من عالم آخر
+      LIWAN · RESTAURANT & LOUNGE
      </p>
      <h1>
-      كل نكهة
+      مش بس نكهة
       <em>
-       إلها حكاية
+       تجربة بتضلّ
       </em>
      </h1>
      <button id="explore">
-      اكتشف المنيو
+      بلّش رحلتك مع ليوان
       <span>
        ←
       </span>
@@ -49,7 +52,7 @@
       <span>
       </span>
      </button>
-     <img alt="LIWAN" class="header-logo" src="images/logo.png"/>
+     <img alt="LIWAN" class="header-logo" src="images/logo.png" decoding="async"/>
      <button aria-label="سلة المشتريات" class="cart-top" id="cartTop">
       <svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24" width="24">
        <path d="m3 5 2 2 2.2 10.5h11.5L21 9H6">
@@ -74,10 +77,10 @@
     </div>
     <div class="heading">
      <p>
-      أهلاً بكم في ليوان
+      LIWAN · نكهات بتجمعنا
      </p>
      <h1>
-      اكتشف قائمتنا
+      اختار اللي بيشهّيك
      </h1>
     </div>
     <div class="search-wrap">
@@ -92,6 +95,7 @@
     </div>
     <div class="items" id="items">
     </div>
+    <div class="closing-note"><span>✦</span> معمول بشغف، ومقدّم بمحبة <span>✦</span></div>
     <div class="footnote">
      LIWAN · Restaurant &amp; Lounge
     </div>

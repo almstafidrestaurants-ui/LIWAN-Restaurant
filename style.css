@@ -1386,3 +1386,237 @@ html,body {
     font-size: 10px;
     text-align: right;
 }
+
+
+/* =========================================
+   LIWAN - PERFORMANCE & SUBTLE MOTION
+   Existing palette and layouts are preserved.
+========================================= */
+
+/* Paint off-screen cards only when needed, without changing their layout. */
+.item {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 245px;
+    transition: border-color .22s ease, box-shadow .22s ease, transform .22s ease;
+}
+
+.item-photo {
+    aspect-ratio: 16 / 7;
+    background: #292522;
+}
+
+.tab, .add, .cart-top, .whatsapp, .menu-toggle, .cart-actions button {
+    transition: transform .18s ease, background-color .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+
+.tab:active, .add:active, .cart-top:active, .whatsapp:active,
+.cart-actions button:active {
+    transform: scale(.95);
+}
+
+.tab.active {
+    box-shadow: 0 3px 14px rgba(211,177,111,.14);
+}
+
+#home:not([hidden]) .heading,
+#home:not([hidden]) .search-wrap,
+#home:not([hidden]) .tabs,
+#home:not([hidden]) .section-head {
+    animation: liwan-rise .38s ease both;
+}
+
+#home:not([hidden]) .search-wrap { animation-delay: .05s; }
+#home:not([hidden]) .tabs { animation-delay: .09s; }
+#home:not([hidden]) .section-head { animation-delay: .12s; }
+
+.splash-logo {
+    animation: liwan-logo-in .7s cubic-bezier(.2,.8,.2,1) both;
+}
+
+.splash-center {
+    animation: liwan-rise .65s .12s ease both;
+}
+
+.drawer:not([hidden]) .drawer-panel {
+    animation: liwan-drawer-in .26s cubic-bezier(.2,.8,.2,1) both;
+}
+
+@keyframes liwan-rise {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes liwan-logo-in {
+    from { opacity: 0; transform: translate(-50%, -9px) scale(.96); }
+    to { opacity: 1; transform: translate(-50%, 0) scale(1); }
+}
+
+@keyframes liwan-drawer-in {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (hover:hover) and (pointer:fine) {
+    .item:hover { border-color: #9b7b50; box-shadow: 0 7px 22px #0006; }
+    .add:hover { transform: translateY(-2px); }
+}
+
+@media (prefers-reduced-motion:reduce) {
+    .splash-logo, .splash-center, .drawer:not([hidden]) .drawer-panel,
+    #home:not([hidden]) .heading, #home:not([hidden]) .search-wrap,
+    #home:not([hidden]) .tabs, #home:not([hidden]) .section-head {
+        animation: none !important;
+    }
+    .item, .tab, .add, .cart-top, .whatsapp, .menu-toggle,
+    .cart-actions button { transition: none !important; }
+}
+
+
+/* ================================================
+   LIWAN · EMERALD SIGNATURE EDITION
+   Visual-only layer. Original image paths, menu data,
+   prices, cart logic and WhatsApp are untouched.
+================================================ */
+:root {
+    --bg: #091411;
+    --card: #14201c;
+    --gold: #d7ad63;
+    --cream: #fff0d3;
+    --muted: #b6b5a8;
+}
+html, body { background: #050c0a; }
+.phone { background: #091411; }
+#home { background: radial-gradient(ellipse 95% 270px at 95% 120px, #1b3428 0%, transparent 85%), linear-gradient(180deg, #0c1c16, #07100e 70%); }
+.header { background: linear-gradient(135deg, #091713, #0c1b15); border-bottom: 1px solid #8e714654; }
+.header-logo { filter: drop-shadow(0 2px 9px #c39b4b24); }
+.heading { padding-top: 18px; padding-bottom: 19px; text-align: center; }
+.heading p { color: #d3ad71; font-size: 12px; letter-spacing: .2px; }
+.heading h1 { font-size: 26px; color: #fff1d8; letter-spacing: -.5px; }
+.heading::after { content: '✧ ───── ✧'; display: block; color: #d7ad63; font-size: 12px; letter-spacing: 3px; margin-top: 7px; opacity: .8; }
+.search-wrap { background: linear-gradient(120deg,#1b2823,#1b2421); border: 1px solid #77634791; border-radius: 19px; box-shadow: inset 0 1px #ffffff0b, 0 10px 25px #0002; }
+.search-wrap input { color: #fff3df; }
+.search-wrap input::placeholder { color: #b2aca0; }
+.search-wrap span { color: #e0b86e; }
+.tabs { padding-top: 2px; padding-bottom: 19px; gap: 9px; }
+.tab { background: #16231e; border: 1px solid #4d584c; color: #efe7d8; border-radius: 22px; padding: 10px 15px; }
+.tab.active { background: linear-gradient(140deg,#edca83,#c99c4e); border-color: #efca80; color: #241a0c; box-shadow: 0 5px 18px #d7ad632e; }
+.section-head { padding-top: 8px; padding-bottom: 13px; }
+.section-head h2 { color: #fff1dc; font-size: 19px; }
+.section-head small { color: #e3bd7c; }
+.item { background: linear-gradient(145deg,#18251f,#111b18); border: 1px solid #89735188; border-radius: 19px; box-shadow: 0 10px 25px #0004; overflow: hidden; }
+.item-photo { height: 163px; aspect-ratio: auto; background: #17221c; }
+.item-body { padding: 14px; }
+.item-info h3 { color: #fff0d9; font-size: 14px; }
+.item-info p { color: #edc078; font-size: 15px; }
+.add { background: linear-gradient(135deg,#edc77d,#c99d53); color: #1c170e; border: 1px solid #f2d08c; border-radius: 12px; box-shadow: 0 5px 12px #0003; }
+.menu-toggle span { background: #e6c17c; }
+.cart-top { background: #17261e; border: 1px solid #cba15d; color: #edc47f; }
+.cart-top span { background: #e7bf78; color: #21180e; }
+.menu-panel { background: #16241e; border-color: #93784c; }
+.menu-panel button { color: #f9ecd7; }
+.toast { background: #f0dfbd; border-color: #d7ad63; }
+.footnote { color: #ab987b; }
+/* Keep the cart light, but make it warmer and more refined. */
+.drawer-panel { background: linear-gradient(165deg,#f8f0e3,#eae0d0); border: 1px solid #e2d0b1; box-shadow: 0 -18px 55px #0008; }
+.drawer-title { border-bottom-color: #d8c5a7; }
+.drawer-kicker { color: #ad7941; }
+.drawer-title h2 { color: #302316; }
+.cart-line { border-bottom-color: #d6c5ad; }
+.cart-photo { border-radius: 13px; border: 1px solid #d7c2a3; }
+.cart-details strong { color: #352819; }
+.cart-details small { color: #a06d32; }
+.cart-actions button { background: #fff8ed; border-color: #cdb28b; color: #4b3420; border-radius: 50%; }
+.cart-actions .remove { border-radius: 12px; background: #fff1eb; color: #a64d3c; }
+.total-row { background: #fff8eb; border: 1px solid #ddc49d; border-radius: 16px; color: #4d3822; }
+.total-row strong:last-child { color: #926129; }
+.whatsapp { background: linear-gradient(110deg,#163c28,#23673c); color: #fff7e8; border-radius: 16px; box-shadow: 0 9px 22px #17462b2e; }
+.whatsapp:disabled { box-shadow: none; }
+.site-help { color: #83735f; }
+/* Cinematic splash uses the ORIGINAL background photo. */
+.splash { background-image: linear-gradient(180deg,#02090665 0%,#00000015 35%,#02090655 59%,#020906e8 100%), url('images/welcome.webp'); }
+.splash-logo { filter: drop-shadow(0 5px 15px #0008); }
+.splash-center { bottom: 8%; }
+.splash-center p { color: #f4dfb5; }
+.splash-center h1 { color: #fff0d6; font-size: 36px; line-height: 1.52; text-shadow: 0 4px 18px #000b; }
+.splash-center em { color: #e6b967; }
+.splash-center button { border: 1px solid #e6b967; border-radius: 17px; background: #08150f9e; color: #fff2d9; box-shadow: 0 0 0 1px #e6b96733, 0 10px 30px #0005; }
+@media (hover: hover) and (pointer: fine) {
+    .item:hover { border-color: #e3b66c; transform: translateY(-2px); box-shadow: 0 12px 30px #0008; }
+    .whatsapp:hover { filter: brightness(1.08); }
+}
+@media (prefers-reduced-motion: reduce) { .item:hover { transform: none; } }
+
+
+/* ============================================================
+   LIWAN · SIGNATURE FINISH
+   Polished emerald / champagne identity and lightweight motion.
+   No existing image path or product information is changed.
+   All animations respect reduced-motion preferences.
+============================================================ */
+:root { --liwan-champagne: #e7c58a; --liwan-emerald: #0b1c17; }
+html { scroll-behavior: smooth; }
+body.cart-is-open { overflow: hidden; }
+.phone { isolation: isolate; }
+.reading-progress {
+    position: fixed; z-index: 120; top: 0; left: 50%; width: min(100%, 390px);
+    height: 2px; transform: scaleX(0); transform-origin: right center;
+    background: linear-gradient(90deg, #9e753f, #f5dba1, #b88647);
+    pointer-events: none;
+}
+.header { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+.heading { position: relative; }
+.heading p { letter-spacing: .7px; }
+.heading::after { content: '✦  ─────  ✦'; letter-spacing: 2px; }
+.search-wrap { transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease; }
+.search-wrap:focus-within {
+    border-color: #e2bd79;
+    box-shadow: 0 0 0 3px #d7ad631b, 0 12px 30px #0003;
+    transform: translateY(-1px);
+}
+.tab { transition: background .22s ease, border-color .22s ease, transform .22s ease, box-shadow .22s ease; }
+.tab:active { transform: scale(.95); }
+.item { position: relative; transition: transform .28s ease, box-shadow .28s ease, border-color .28s ease; }
+.item::after {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    border-radius: inherit; box-shadow: inset 0 1px #fff9;
+}
+.item-photo { opacity: .65; transition: opacity .35s ease, transform .6s ease; }
+.item-photo.image-ready { opacity: 1; }
+.reveal-card { opacity: 0; transform: translateY(18px); }
+.reveal-card.is-visible { opacity: 1; transform: translateY(0); transition: opacity .42s ease, transform .42s cubic-bezier(.2,.8,.2,1), border-color .25s, box-shadow .25s; }
+.add { transition: transform .18s ease, box-shadow .18s ease, filter .18s ease; }
+.add:active { transform: scale(.9); }
+.add.add-pop { animation: liwan-add-pop .34s cubic-bezier(.2,.8,.3,1.4); }
+.cart-top.cart-celebrate { animation: liwan-cart-bounce .42s ease; }
+.cart-top span { transition: transform .2s ease; }
+.drawer-panel { border-radius: 26px 26px 0 0; }
+.drawer:not([hidden]) .drawer-shade { animation: liwan-shade-in .26s ease both; }
+.drawer:not([hidden]) .drawer-panel { animation: liwan-panel-rise .38s cubic-bezier(.2,.8,.2,1) both; }
+.whatsapp { transition: transform .22s ease, filter .22s ease, box-shadow .22s ease; }
+.whatsapp:not(:disabled):active { transform: scale(.98); }
+.closing-note { text-align: center; color: #b9a07c; font-size: 11px; letter-spacing: .2px; padding: 16px 12px 4px; }
+.closing-note span { color: #d9b575; padding: 0 5px; }
+.splash::after {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(ellipse at 50% 62%, transparent 40%, #0005 100%);
+}
+.splash-logo, .splash-center { z-index: 1; }
+.splash-center p { font-size: 12px; letter-spacing: 1px; font-weight: 700; }
+.splash-center h1 { font-size: clamp(30px, 8vw, 38px); line-height: 1.5; }
+.splash-center button { transition: transform .22s ease, background .22s ease, border-color .22s ease; }
+.splash-center button:active { transform: scale(.98); }
+@keyframes liwan-add-pop { 0%{transform:scale(1)} 45%{transform:scale(1.16)} 100%{transform:scale(1)} }
+@keyframes liwan-cart-bounce { 0%,100%{transform:translateY(0)} 45%{transform:translateY(-5px)} }
+@keyframes liwan-shade-in { from{opacity:0} to{opacity:1} }
+@keyframes liwan-panel-rise { from{opacity:.5;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+@media (hover:hover) and (pointer:fine) {
+    .item:hover .item-photo { transform: scale(1.025); }
+    .add:hover { filter: brightness(1.1); box-shadow: 0 6px 18px #d7ad6340; }
+    .whatsapp:not(:disabled):hover { transform: translateY(-2px); }
+}
+@media (prefers-reduced-motion:reduce) {
+    html { scroll-behavior: auto; }
+    .reveal-card, .reveal-card.is-visible { opacity: 1; transform: none; transition: none; }
+    .item-photo, .add, .cart-top, .whatsapp, .search-wrap, .tab, .splash-center button { animation: none !important; transition: none !important; }
+    .drawer:not([hidden]) .drawer-shade, .drawer:not([hidden]) .drawer-panel { animation: none !important; }
+}
