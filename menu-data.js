@@ -81,208 +81,208 @@ const sections = [
   {
     "id": "s2",
     "name": "الفروج",
-    "image": "images/menu/section-2.jpg",
+    "image": "images/menu/Charcoal-grilled chicken.webp",
     "items": [
       {
         "id": "s2-1",
         "name": "فروج مشوي على الفحم",
-        "price": 5,
-        "image": "images/menu/s2-1.jpg"
+        "price": 13,
+        "image": "images/menu/Charcoal-grilled chicken.webp"
       },
       {
         "id": "s2-2",
         "name": "فروج على الغاز",
-        "price": 5,
-        "image": "images/menu/s2-2.jpg"
+        "price": 10,
+        "image": "images/menu/Gas-grilled chicken.webp"
       },
       {
         "id": "s2-3",
         "name": "جوانح على الفحم",
-        "price": 5,
-        "image": "images/menu/s2-3.jpg"
+        "price": 8,
+        "image": "images/menu/Charcoal-grilled wings.webp"
       },
       {
         "id": "s2-4",
         "name": "صينية جاج وبطاطا بالفرن",
-        "price": 5,
-        "image": "images/menu/s2-4.jpg"
+        "price": 20,
+        "image": "images/menu/Oven-baked chicken and potato.webp"
       },
       {
         "id": "s2-5",
-        "name": "وجبة كريسبي",
-        "price": 5,
-        "image": "images/menu/s2-5.jpg"
+        "name": "وجبة كريسبي مع بطاطا",
+        "price": 10,
+        "image": "images/menu/Crispy meal with fries.webp"
       },
       {
         "id": "s2-6",
         "name": "شاورما جاج",
-        "price": 5,
-        "image": "images/menu/s2-6.jpg"
+        "price": 3.5,
+        "image": "images/menu/Chicken shawarma.webp"
       },
       {
         "id": "s2-7",
         "name": "وجبة بطاطا",
-        "price": 5,
-        "image": "images/menu/s2-7.jpg"
+        "price": 3.5,
+        "image": "images/menu/Fries meal.webp"
       }
     ]
   },
   {
     "id": "s3",
     "name": "الكوكتيل",
-    "image": "images/menu/section-3.jpg",
+    "image": "images/menu/Fruit Cocktail with Cream, Honey, and Nuts.webp",
     "items": [
       {
         "id": "s3-1",
         "name": "موز وحليب",
         "price": 2.5,
-        "image": "images/menu/s3-1.jpg"
+        "image": "images/menu/Banana and milk.webp"
       },
       {
         "id": "s3-2",
         "name": "فراولة وحليب",
         "price": 3,
-        "image": "images/menu/s3-2.jpg"
+        "image": "images/menu/Strawberry and milk.webp"
       },
       {
         "id": "s3-3",
         "name": "موز وحليب وشوكولا",
         "price": 3.5,
-        "image": "images/menu/s3-3.jpg"
+        "image": "images/menu/Banana, milk, and chocolate.webp"
       },
       {
         "id": "s3-4",
         "name": "كوكتيل فواكه مشكل",
         "price": 3.5,
-        "image": "images/menu/s3-4.jpg"
+        "image": "images/menu/Mixed fruit cocktail.webp"
       },
       {
         "id": "s3-5",
         "name": "كوكتيل مع قشطة وعسل ومكسرات",
         "price": 4.5,
-        "image": "images/menu/s3-5.jpg"
+        "image": "images/menu/Fruit Cocktail with Cream, Honey, and Nuts.webp"
       },
       {
         "id": "s3-6",
         "name": "أفوكادو مع عسل ومكسرات",
         "price": 5,
-        "image": "images/menu/s3-6.jpg"
+        "image": "images/menu/Avocado with Honey and Nuts.webp"
       },
       {
         "id": "s3-7",
         "name": "كوكتيل ليوان سبيشال",
         "price": 5.5,
-        "image": "images/menu/s3-7.jpg"
+        "image": "images/menu/Liwan Special Cocktail.webp"
       }
     ]
   },
   {
     "id": "s4",
     "name": "الكريب",
-    "image": "images/menu/section-4.jpg",
+    "image": "images/menu/Nutella & Strawberry Crepe.webp",
     "items": [
       {
         "id": "s4-1",
         "name": "كريب شوكولا",
         "price": 3,
-        "image": "images/menu/s4-1.jpg"
+        "image": "images/menu/Chocolate Crêpe.webp"
       },
       {
         "id": "s4-2",
         "name": "كريب نوتيلا",
         "price": 3.5,
-        "image": "images/menu/s4-2.jpg"
+        "image": "images/menu/Nutella Crêpe.webp"
       },
       {
         "id": "s4-3",
         "name": "كريب نوتيلا وموز",
         "price": 4,
-        "image": "images/menu/s4-3.jpg"
+        "image": "images/menu/Nutella & Banana Crêpe.webp"
       },
       {
         "id": "s4-4",
         "name": "كريب نوتيلا وفراولة",
         "price": 4.5,
-        "image": "images/menu/s4-4.jpg"
+        "image": "images/menu/Nutella & Strawberry Crepe.webp"
       },
       {
         "id": "s4-5",
         "name": "كريب أوريو",
         "price": 4,
-        "image": "images/menu/s4-5.jpg"
+        "image": "images/menu/Oreo Crêpe.webp"
       },
       {
         "id": "s4-6",
         "name": "كريب لوتس",
         "price": 4.5,
-        "image": "images/menu/s4-6.jpg"
+        "image": "images/menu/Lotus Crêpe.webp"
       },
       {
         "id": "s4-7",
         "name": "كريب كندر",
         "price": 5,
-        "image": "images/menu/s4-7.jpg"
+        "image": "images/menu/Kinder Crêpe.webp"
       },
       {
         "id": "s4-8",
         "name": "كريب ليوان سبيشال",
         "price": 5.5,
-        "image": "images/menu/s4-8.jpg"
+        "image": "images/menu/Liwan Special Crêpe.webp"
       }
     ]
   },
   {
     "id": "s5",
     "name": "العصائر الطازجة",
-    "image": "images/menu/section-5.jpg",
+    "image": "images/menu/Orange Juice.webp",
     "items": [
       {
         "id": "s5-1",
         "name": "عصير برتقال",
         "price": 2,
-        "image": "images/menu/s5-1.jpg"
+        "image": "images/menu/Orange Juice.webp"
       },
       {
         "id": "s5-2",
         "name": "ليموناضة",
         "price": 2,
-        "image": "images/menu/s5-2.jpg"
+        "image": "images/menu/Lemonade.webp"
       },
       {
         "id": "s5-3",
         "name": "ليموناضة بالنعناع",
         "price": 2.5,
-        "image": "images/menu/s5-3.jpg"
+        "image": "images/menu/Mint Lemonade.webp"
       },
       {
         "id": "s5-4",
         "name": "عصير جزر",
         "price": 2.5,
-        "image": "images/menu/s5-4.jpg"
+        "image": "images/menu/Carrot Juice.webp"
       },
       {
         "id": "s5-5",
         "name": "عصير تفاح",
         "price": 2.5,
-        "image": "images/menu/s5-5.jpg"
+        "image": "images/menu/Apple Juice.webp"
       },
       {
         "id": "s5-6",
         "name": "عصير فراولة",
         "price": 3,
-        "image": "images/menu/s5-6.jpg"
+        "image": "images/menu/Strawberry Juice.webp"
       },
       {
         "id": "s5-7",
         "name": "عصير مانغا",
         "price": 3,
-        "image": "images/menu/s5-7.jpg"
+        "image": "images/menu/Mango Juice.webp"
       }
     ]
   },
   {
     "id": "s6",
-    "name": "إضافات الفواكه",
+    "name": "اركيلة  ",
     "image": "images/menu/section-6.jpg",
     "items": [
       {
