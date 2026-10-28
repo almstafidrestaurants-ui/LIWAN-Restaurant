@@ -128,6 +128,79 @@ const sections = [
     ]
   },
   {
+    "id": "s7",
+    "name": "المعجنات",
+    "image": "images/menu/Pizza.webp",
+    "items": [
+      {
+        "id": "s7-1",
+        "name": "بيتزا صغيرة",
+        "price": 2.79,
+        "image": "images/menu/Pizza.webp"
+      },
+      {
+        "id": "s7-2",
+        "name": "بيتزا وسط",
+        "price": 4.47,
+        "image": "images/menu/Pizza.webp"
+      },
+      {
+        "id": "s7-3",
+        "name": "بيتزا كبيرة",
+        "price": 7.82,
+        "image": "images/menu/Pizza.webp"
+      },
+      {
+        "id": "s7-4",
+        "name": "لحم بعجين",
+        "price": 1.68,
+        "image": "images/menu/Lahm bi-ajin.webp"
+      },
+      {
+        "id": "s7-5",
+        "name": "زعتر",
+        "price": 0.56,
+        "image": "images/menu/Za'atar.webp"
+      },
+      {
+        "id": "s7-6",
+        "name": "جبنه",
+        "price": 1.12,
+        "image": "images/menu/Cheese.webp"
+      },
+      {
+        "id": "s7-7",
+        "name": "حرحوره",
+        "price": 0.56,
+        "image": "images/menu/Harhoura.webp"
+      },
+      {
+        "id": "s7-8",
+        "name": "قريش",
+        "price": 1.12,
+        "image": "images/menu/Quraish.webp"
+      },
+      {
+        "id": "s7-9",
+        "name": "كشك",
+        "price": 1.12,
+        "image": "images/menu/Kishk.webp"
+      },
+      {
+        "id": "s7-10",
+        "name": "صفيحه بعلبكيه كيلو",
+        "price": 24,
+        "image": "images/menu/Baalbeki-style sfiha.webp"
+      },
+      {
+        "id": "s7-11",
+        "name": "صفيحه حمصيه كيلو",
+        "price": 20,
+        "image": "images/menu/Homsi-style sfiha.webp"
+      }
+    ]
+  },
+  {
     "id": "s3",
     "name": "الكوكتيل",
     "image": "images/menu/Fruit Cocktail with Cream, Honey, and Nuts.webp",
@@ -283,61 +356,61 @@ const sections = [
   {
     "id": "s6",
     "name": "اركيلة  ",
-    "image": "images/menu/section-6.jpg",
+    "image": "images/menu/Two Apples.webp",
     "items": [
       {
         "id": "s6-1",
         "name": "تفاحتين",
         "price": 4,
-        "image": "images/menu/s6-1.jpg"
+        "image": "images/menu/Two Apples.webp"
       },
       {
         "id": "s6-2",
         "name": "عنب",
         "price": 4,
-        "image": "images/menu/s6-2.jpg"
+        "image": "images/menu/Grapes.webp"
       },
       {
         "id": "s6-3",
         "name": "عنب ونعنع",
         "price": 4,
-        "image": "images/menu/s6-3.jpg"
+        "image": "images/menu/Grapes and Mint.webp"
       },
       {
         "id": "s6-4",
         "name": "ليمون ونعنع",
         "price": 4,
-        "image": "images/menu/s6-4.jpg"
+        "image": "images/menu/Lemon & Mint.webp"
       },
       {
         "id": "s6-5",
         "name": "نعنع",
         "price": 4,
-        "image": "images/menu/s6-5.jpg"
+        "image": "images/menu/Mint.webp"
       },
       {
         "id": "s6-6",
         "name": "بطيخ ونعنع",
         "price": 4,
-        "image": "images/menu/s6-6.jpg"
+        "image": "images/menu/Watermelon and mint.webp"
       },
       {
         "id": "s6-7",
         "name": "علكة ونعنع",
         "price": 4,
-        "image": "images/menu/s6-7.jpg"
+        "image": "images/menu/Gum & Mint.webp"
       },
       {
         "id": "s6-8",
         "name": "بلوبيري",
         "price": 4.5,
-        "image": "images/menu/s6-8.jpg"
+        "image": "images/menu/Blueberry.webp"
       },
       {
         "id": "s6-9",
         "name": "تبديل رأس",
         "price": 2,
-        "image": "images/menu/s6-9.jpg"
+        "image": "images/menu/Add Flavor.webp"
       }
     ]
   }

@@ -52,7 +52,7 @@ button:focus-visible,input:focus-visible {
     height:100dvh;
     min-height:620px;
     position:relative;
-    background:linear-gradient(180deg,#000b 0%,#0002 42%,#000e 100%),url('images/welcome.jpg') center/cover,#14100c;
+    background:linear-gradient(180deg,#000b 0%,#0002 42%,#000e 100%),url('images/welcome.webp') center/cover,#14100c;
 }
 
 .splash-logo {
