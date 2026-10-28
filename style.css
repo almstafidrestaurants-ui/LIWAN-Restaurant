@@ -1620,3 +1620,16 @@ body.cart-is-open { overflow: hidden; }
     .item-photo, .add, .cart-top, .whatsapp, .search-wrap, .tab, .splash-center button { animation: none !important; transition: none !important; }
     .drawer:not([hidden]) .drawer-shade, .drawer:not([hidden]) .drawer-panel { animation: none !important; }
 }
+
+/* Compact menu header: search begins directly below the logo. */
+#home .search-wrap {
+    margin-top: 14px;
+    margin-bottom: 13px;
+}
+#home .tabs {
+    padding-bottom: 10px;
+}
+#home .section-head {
+    padding-top: 3px;
+    padding-bottom: 10px;
+}
