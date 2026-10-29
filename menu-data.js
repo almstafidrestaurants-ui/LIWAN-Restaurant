@@ -213,7 +213,7 @@ const sections = [
       },
       {
         "id": "s3-2",
-        "name": "فراولة وحليب",
+        "name": "   حليب وموز وفريز ",
         "price": 3,
         "image": "images/menu/Strawberry and milk.webp"
       },
@@ -252,6 +252,12 @@ const sections = [
         "name": "كوكتيل  شقف",
         "price":  5,
         "image": "images/menu/Mixed fruit cocktail.webp"
+      },
+             {
+        "id": "s3-9",
+        "name": " كوكتيل المانجو   ",
+        "price":  0,
+        "image": "images/menu/Mango Cocktail.webp"
       }
     ]
   },
@@ -307,6 +313,36 @@ const sections = [
         "name": "كريب ليوان سبيشال",
         "price": 5.5,
         "image": "images/menu/Liwan Special Crêpe.webp"
+      },
+        {
+        "id": "s4-9",
+        "name": " كريب فواكه    ",
+        "price": 0,
+        "image": "images/menu/Fruit Crêpe.webp"
+      },
+       {
+        "id": "s4-10",
+        "name": " كريب سنيكرز    ",
+        "price": 0,
+        "image": "images/menu/Snickers Crêpe.webp"
+      },
+         {
+        "id": "s4-11",
+        "name": " كريب مارس     ",
+        "price": 0,
+        "image": "images/menu/Mars Crepe.webp"
+      },
+       {
+        "id": "s4-12",
+        "name": " كريب بابلي     ",
+        "price": 0,
+        "image": "images/menu/Bubbly Crêpe.webp"
+      },
+       {
+        "id": "s4-13",
+        "name": " كريب مكسرات      ",
+        "price": 0,
+        "image": "images/menu/Nut Crêpe.webp"
       }
     ]
   },
@@ -356,7 +392,47 @@ const sections = [
         "name": "عصير مانغا",
         "price": 3,
         "image": "images/menu/Mango Juice.webp"
+      },
+         {
+        "id": "s5-8",
+        "name": "  عصير اناناس",
+        "price": 0,
+        "image": "images/menu/Pineapple juice.webp"
+      },
+            {
+        "id": "s5-8",
+        "name": "  عصير دراق",
+        "price": 0,
+        "image": "images/menu/peach juice.webp"
       }
+    ]
+  },
+  {
+    "id": "s8",
+    "name": "موهيتو",
+    "image": "images/menu/Mango Juice.webp",
+    "items": [
+      { "id": "s8-1", "name": "موهيتو رمان", "price": 0, "image": "images/menu/Pomegranate Mojito.webp" },
+      { "id": "s8-2", "name": "موهيتو مانجو", "price": 0, "image": "images/menu/Mango Mojito.webp" },
+      { "id": "s8-3", "name": "موهيتو بلو بيري", "price": 0, "image": "images/menu/Blueberry Mojito.webp" },
+      { "id": "s8-4", "name": "موهيتو أناناس", "price": 0, "image": "images/menu/Pineapple Mojito.webp" }
+    ]
+  },
+  {
+    "id": "s9",
+    "name": "ميلك شيك",
+    "image": "images/menu/Strawberry and milk.webp",
+    "items": [
+      { "id": "s9-1", "name": "ميلك شيك لوتس", "price": 0, "image": "images/menu/Lotus Milkshake.webp" },
+      { "id": "s9-2", "name": "ميلك شيك نوتيلا", "price": 0, "image": "images/menu/Nutella Milkshake.webp" },
+      { "id": "s9-3", "name": "ميلك شيك فريز", "price": 0, "image": "images/menu/Strawberry Milkshake.webp" },
+      { "id": "s9-4", "name": "ميلك شيك توت", "price": 0, "image": "images/menu/Berry Milkshake.webp" },
+      { "id": "s9-5", "name": "ميلك شيك أوريو", "price": 0, "image": "images/menu/Oreo Milkshake.webp" },
+      { "id": "s9-6", "name": "ميلك شيك توكس", "price": 0, "image": "images/menu/Twix Milkshake.webp" },
+      { "id": "s9-7", "name": "ميلك شيك مارس", "price": 0, "image": "images/menu/Mars Milkshake.webp" },
+      { "id": "s9-8", "name": "ميلك شيك شوكولا", "price": 0, "image": "images/menu/Chocolate Milkshake.webp" },
+      { "id": "s9-9", "name": "ميلك شيك مكسرات لوز", "price": 0, "image": "images/menu/Almond Milkshake.webp" },
+      { "id": "s9-10", "name": "ميلك شيك فستق حلبي", "price": 0, "image": "images/menu/Pistachio Milkshake.webp" }
     ]
   },
   {
@@ -366,7 +442,7 @@ const sections = [
     "items": [
       {
         "id": "s6-1",
-        "name": "تفاحتين",
+        "name": "تفاحتين نخله",
         "price": 4,
         "image": "images/menu/Two Apples.webp"
       },
@@ -417,6 +493,18 @@ const sections = [
         "name": "تبديل رأس",
         "price": 2,
         "image": "images/menu/Add Flavor.webp"
+      },
+        {
+        "id": "s6-10",
+        "name": " بولو  ",
+        "price": 0,
+        "image": "images/menu/Mint.webp"
+      },
+        {
+        "id": "s6-11",
+        "name": " لوف    ",
+        "price": 0,
+        "image": "images/menu/Love Hookah.webp"
       }
     ]
   }

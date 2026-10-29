@@ -1663,3 +1663,12 @@ body.cart-is-open { overflow: hidden; }
     outline: 2px solid #d3b16f;
     outline-offset: 3px;
 }
+
+/* Keep new items visually consistent with the original gold + buttons. */
+.add:disabled { opacity: 1; cursor: not-allowed; background: #c69d55; color: #fff; }
+/* زر الإضافة الذهبي مع علامة + غامقة */
+.item .add,
+.item .add:disabled {
+    color: #1d2119 !important;
+    -webkit-text-fill-color: #1d2119 !important;
+}

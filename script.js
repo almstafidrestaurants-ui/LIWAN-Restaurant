@@ -139,7 +139,8 @@
 
             const image = document.createElement('img');
             image.className = 'item-photo';
-            image.src = product.image;
+            if (product.image) image.src = product.image;
+            else image.hidden = true;
             image.addEventListener('load', () => image.classList.add('image-ready'), { once: true });
             image.alt = product.name;
             image.loading = visibleProducts.indexOf(product) < 2 ? 'eager' : 'lazy';
@@ -159,7 +160,7 @@
             name.textContent = product.name;
 
             const price = document.createElement('p');
-            price.textContent = formatMoney(product.price);
+            price.textContent = product.price == null ? 'السعر قريبًا' : formatMoney(product.price);
             info.append(name, price);
 
             if (query) {
@@ -179,7 +180,13 @@
             addButton.type = 'button';
             addButton.textContent = '+';
             addButton.setAttribute('aria-label', 'إضافة ' + product.name);
+            if (product.price == null) {
+                addButton.disabled = true;
+                addButton.textContent = '+';
+                addButton.title = 'السعر لم يُحدّد بعد';
+            }
             addButton.addEventListener('click', () => {
+                if (product.price == null) return;
                 cart[product.id] = Math.min(99, (cart[product.id] || 0) + 1);
                 saveCart();
                 showToast();
@@ -235,7 +242,8 @@
 
             const image = document.createElement('img');
             image.className = 'cart-photo';
-            image.src = product.image;
+            if (product.image) image.src = product.image;
+            else image.hidden = true;
             image.alt = product.name;
             image.loading = 'lazy';
             image.decoding = 'async';
@@ -250,7 +258,7 @@
             name.textContent = product.name;
 
             const price = document.createElement('small');
-            price.textContent = formatMoney(product.price);
+            price.textContent = product.price == null ? 'السعر قريبًا' : formatMoney(product.price);
 
             const actions = document.createElement('div');
             actions.className = 'cart-actions';
