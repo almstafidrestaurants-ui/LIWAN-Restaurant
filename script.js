@@ -19,6 +19,29 @@
         }));
     });
 
+    // OWNER DEMO: read local price changes from this browser only.
+    // The public menu design stays identical; production sync requires Firebase.
+    const pricePreviewKey = 'liwan-owner-demo-prices-v1';
+    const originalPrices = new Map(products.map(item => [item.id, item.price]));
+    function loadPreviewPrices() {
+        let overrides = {};
+        try {
+            const saved = JSON.parse(localStorage.getItem(pricePreviewKey) || '{}');
+            if (saved && saved.prices && typeof saved.prices === 'object' && !Array.isArray(saved.prices)) {
+                overrides = saved.prices;
+            }
+        } catch (_) { /* Keep the original prices if browser storage is unavailable. */ }
+        let changed = false;
+        for (const item of products) {
+            const saved = Object.prototype.hasOwnProperty.call(overrides, item.id) ? overrides[item.id] : null;
+            const valid = typeof saved === 'number' && Number.isFinite(saved) && saved >= 0 && saved <= 10000;
+            const price = valid ? saved : originalPrices.get(item.id);
+            if (item.price !== price) { item.price = price; changed = true; }
+        }
+        return changed;
+    }
+    loadPreviewPrices();
+
     const productsById = new Map(products.map((item) => [item.id, item]));
     let activeSection = sections[0]?.id;
     let cart = {};
@@ -467,6 +490,17 @@
     }
     window.addEventListener('scroll', updateReadingProgress, { passive: true });
     window.addEventListener('resize', updateReadingProgress, { passive: true });
+
+    // Refresh while returning from the owner's preview page. No admin UI is shown to visitors.
+    function refreshPricePreview() {
+        if (!loadPreviewPrices()) return;
+        if (!$('home').hidden) renderMenu();
+        if (!$('drawer').hidden) renderCart();
+    }
+    window.addEventListener('focus', refreshPricePreview);
+    window.addEventListener('storage', (event) => {
+        if (event.key === pricePreviewKey) refreshPricePreview();
+    });
 
     $('explore').addEventListener('click', showHome);
     splashTimer = setTimeout(showHome, 2600);
