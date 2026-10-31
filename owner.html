@@ -43,13 +43,14 @@
       <div class="welcome-mark" aria-hidden="true">LIWAN <span>✦</span></div>
     </section>
     <section class="stats" aria-label="ملخص المنيو">
-      <div class="stat card"><small>عدد الأصناف</small><strong id="totalItems">0</strong><span>من المنيو الأصلي</span></div>
+      <div class="stat card"><small>عدد الأصناف</small><strong id="totalItems">0</strong><span>الأصلية والجديدة</span></div>
       <div class="stat card"><small>الأسعار المعدّلة</small><strong id="editedItems">0</strong><span>على المنيو المباشر</span></div>
       <div class="stat card"><small>الحساب</small><strong class="account-name">صاحب المطعم</strong><span>Admin واحد فقط</span></div>
     </section>
     <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
     <nav class="tabs" aria-label="أقسام لوحة التحكم">
       <button type="button" data-panel="prices" class="active">أسعار المنتجات</button>
+      <button type="button" data-panel="add">إضافة صنف</button>
       <button type="button" data-panel="history">سجل التعديلات</button>
     </nav>
     <section class="card" id="pricesPanel">
@@ -59,6 +60,40 @@
         <select id="category" aria-label="اختر القسم"><option value="">جميع الأقسام</option></select>
       </div>
       <div class="product-list" id="products"></div>
+    </section>
+    <section class="card" id="addPanel" hidden>
+      <div class="section-heading">
+        <div><h2 id="addTitle">إضافة صنف جديد</h2><p class="subtext">اختر القسم أولاً؛ سيظهر الصنف الجديد مباشرة تحت عنوانه في منيو الزبائن.</p></div>
+      </div>
+      <form id="addItemForm" class="add-item-form" autocomplete="off">
+        <div class="form-field">
+          <label for="newItemSection">القسم الذي سيظهر فيه الصنف *</label>
+          <select id="newItemSection" required><option value="">اختر القسم</option></select>
+        </div>
+        <div class="form-field">
+          <label for="newItemName">اسم الصنف *</label>
+          <input id="newItemName" type="text" maxlength="120" placeholder="مثل: برغر لحم" required>
+        </div>
+        <div class="form-field">
+          <label for="newItemPrice">السعر بالدولار *</label>
+          <input id="newItemPrice" type="number" min="0" max="10000" step="0.01" placeholder="12" required>
+        </div>
+        <div class="form-field">
+          <label for="newItemImage">مسار صورة الصنف (اختياري)</label>
+          <input id="newItemImage" type="text" maxlength="400" dir="ltr" placeholder="images/menu/your-photo.webp">
+          <small>اترك الصورة فارغة لاستخدام صورة القسم. لإضافة صورة جديدة ارفعها أولًا إلى GitHub داخل images.</small>
+        </div>
+        <div class="form-field full">
+          <label for="newItemDescription">وصف الصنف (اختياري)</label>
+          <input id="newItemDescription" type="text" maxlength="250" placeholder="وصف قصير يظهر مع الصنف">
+        </div>
+        <div class="form-buttons full">
+          <button class="save" type="submit" id="addItemButton">+ حفظ الصنف في القسم</button>
+          <button class="restore" type="button" id="cancelItemEdit" hidden>إلغاء التعديل</button>
+        </div>
+      </form>
+      <div class="section-heading managed-heading"><h2>الأصناف التي أضفتها</h2><span id="customCount" class="count">0 صنف</span></div>
+      <div class="product-list" id="customItems"></div>
     </section>
     <section class="card" id="historyPanel" hidden>
       <div class="section-heading"><div><h2>سجل التعديلات</h2><p class="subtext">تغييرات الأسعار التي حفظتها على المنيو المباشر.</p></div></div>

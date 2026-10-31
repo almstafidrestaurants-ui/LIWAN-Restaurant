@@ -1,0 +1,9 @@
+LIWAN SPARK — نسخة مجانية، لا Blaze
+
+1) Firebase > Authentication > Users > Add user (مرة واحدة فقط).
+2) ضع بريد المالك و UID في firebase-config.js، و UID في firestore.rules.
+3) الصق قواعد firestore.rules في Firestore > Rules ثم Publish.
+4) ارفع محتويات LIWAN_SPARK_GITHUB_UPLOAD.zip إلى GitHub.
+5) افتح owner.html؛ سيطلب كلمة السر فقط، ثم احفظ السعر ليراه الزبائن.
+
+اقرأ README.md للشرح والتفاصيل.

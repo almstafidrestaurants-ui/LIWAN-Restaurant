@@ -1,0 +1,75 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // IMPORTANT: Replace the UID below with the exact UID from Authentication > Users.
+    // Email is not used to grant rights; only the authenticated UID is trusted.
+    function isOwner() {
+      return request.auth != null
+        && request.auth.uid == 'VA3ViQPnNZf94nTvibXDGqumAqM2';
+    }
+    match /menuPrices/{productId} {
+      // Customers can see prices but cannot change them.
+      allow read: if true;
+      allow create, update: if isOwner()
+        && request.resource.data.keys().hasOnly(['price','updatedAt','updatedBy'])
+        && request.resource.data.keys().hasAll(['price','updatedAt','updatedBy'])
+        && request.resource.data.price is number
+        && request.resource.data.price >= 0
+        && request.resource.data.price <= 10000
+        && request.resource.data.updatedAt == request.time
+        && request.resource.data.updatedBy == request.auth.uid;
+      allow delete: if isOwner();
+    }
+    // New menu items, selected by the owner and shown under existing sections.
+    match /menuItems/{itemId} {
+      allow read: if true;
+      function validItem(d) {
+        return d.keys().hasOnly(['name','sectionId','price','image','description','createdAt','updatedAt','createdBy','updatedBy'])
+          && d.keys().hasAll(['name','sectionId','price','image','description','createdAt','updatedAt','createdBy','updatedBy'])
+          && d.name is string && d.name.size() > 0 && d.name.size() <= 120
+          && d.sectionId in ['s1','s2','s3','s4','s5','s6','s7','s8','s9']
+          && d.price is number && d.price >= 0 && d.price <= 10000
+          && d.image is string && d.image.size() <= 400
+          && (d.image == '' || d.image.matches('^https://[^ ]+$') || d.image.matches('^images/[A-Za-z0-9_./%() -]+$'))
+          && d.description is string && d.description.size() <= 250
+          && d.createdAt is timestamp && d.updatedAt is timestamp
+          && d.createdBy is string && d.updatedBy is string;
+      }
+      allow create: if isOwner()
+        && itemId.matches('^new-[A-Za-z0-9]{20}$')
+        && validItem(request.resource.data)
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.updatedAt == request.time
+        && request.resource.data.createdBy == request.auth.uid
+        && request.resource.data.updatedBy == request.auth.uid;
+      allow update: if isOwner()
+        && itemId.matches('^new-[A-Za-z0-9]{20}$')
+        && validItem(request.resource.data)
+        && request.resource.data.createdAt == resource.data.createdAt
+        && request.resource.data.createdBy == resource.data.createdBy
+        && request.resource.data.updatedAt == request.time
+        && request.resource.data.updatedBy == request.auth.uid;
+      allow delete: if isOwner() && itemId.matches('^new-[A-Za-z0-9]{20}$');
+    }
+    match /priceHistory/{historyId} {
+      allow read: if isOwner();
+      allow create: if isOwner()
+        && request.resource.data.keys().hasOnly(['productId','productName','oldPrice','newPrice','at','updatedBy'])
+        && request.resource.data.keys().hasAll(['productId','productName','oldPrice','newPrice','at','updatedBy'])
+        && request.resource.data.productId is string
+        && request.resource.data.productId.size() <= 80
+        && request.resource.data.productName is string
+        && request.resource.data.productName.size() <= 150
+        && request.resource.data.oldPrice is number
+        && request.resource.data.newPrice is number
+        && request.resource.data.oldPrice >= 0
+        && request.resource.data.oldPrice <= 10000
+        && request.resource.data.newPrice >= 0
+        && request.resource.data.newPrice <= 10000
+        && request.resource.data.at == request.time
+        && request.resource.data.updatedBy == request.auth.uid;
+      allow update, delete: if false;
+    }
+    match /{document=**} { allow read, write: if false; }
+  }
+}

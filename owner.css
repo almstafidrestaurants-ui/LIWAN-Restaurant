@@ -17,3 +17,24 @@
 .topbar-actions{display:flex;align-items:center;gap:9px}
 .exit-button{font-size:12px;color:var(--text);background:transparent}
 @media(max-width:540px){.login-card{padding:24px 17px}.topbar-actions{gap:4px}.exit-button{padding:8px 10px;font-size:10px}}
+
+/* LIWAN Owner / Add item in selected section */
+.add-item-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px;margin:18px 0 30px}
+.form-field{display:flex;flex-direction:column;gap:7px;min-width:0}
+.form-field label{font-size:13px;font-weight:800;color:var(--text)}
+.form-field small{color:var(--muted);font-size:11px;line-height:1.7}
+.form-field.full,.form-buttons.full{grid-column:1/-1}
+.form-buttons{display:flex;flex-wrap:wrap;gap:10px}
+.form-buttons button{padding:12px 20px;border-radius:10px;font-weight:800;border:1px solid #9e956e}
+.form-buttons button:disabled{opacity:.55;cursor:not-allowed}
+.managed-heading{margin-top:28px}
+.manage-item{display:grid;grid-template-columns:60px minmax(0,1fr) auto;gap:14px;align-items:center;padding:12px;border:1px solid #53634d;border-radius:12px;background:#102219}
+.manage-item img{width:60px;height:60px;object-fit:cover;border-radius:9px}
+.manage-item-info strong{display:block;font-size:13px}
+.manage-item-info small{display:block;color:var(--muted);font-size:12px}
+.manage-item .actions button{border:1px solid #8e8b67;background:transparent;color:var(--text)}
+.manage-item .actions button.danger{color:#ffb1a5;border-color:#a86b64}
+@media(max-width:540px){.add-item-form{grid-template-columns:1fr}.manage-item{grid-template-columns:48px minmax(0,1fr)}.manage-item img{width:48px;height:48px}.manage-item .actions{grid-column:1/-1;justify-content:flex-end}}
+
+/* Keep owner tab names readable on narrow phones. */
+.tabs{flex-wrap:wrap}

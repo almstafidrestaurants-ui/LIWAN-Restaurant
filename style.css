@@ -1672,3 +1672,5 @@ body.cart-is-open { overflow: hidden; }
     color: #1d2119 !important;
     -webkit-text-fill-color: #1d2119 !important;
 }
+/* Optional description for custom products; original layout remains unchanged. */
+.item-description{display:block;color:#c8c9bc;font-size:12px;line-height:1.65;margin-top:5px}

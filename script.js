@@ -10,7 +10,7 @@
     const $ = (id) => document.getElementById(id);
     const storageKey = 'liwan-cart-v2';
 
-    const products = sections.flatMap((section) => {
+    const baseProducts = sections.flatMap((section) => {
         return section.items.map((item) => ({
             ...item,
             section: section.id,
@@ -18,12 +18,15 @@
             image: item.image || section.image
         }));
     });
+    const products = baseProducts.map(item => ({...item}));
 
     // Shared Firestore price overrides; base prices remain available if offline.
-    const originalPrices = new Map(products.map(item => [item.id, item.price]));
+    const originalPrices = new Map(baseProducts.map(item => [item.id, item.price]));
+    let lastCloudPrices = Object.create(null);
     function applySharedPrices(overrides) {
         let changed = false;
         for (const item of products) {
+            if (item.isCustom) continue;
             const saved = Object.prototype.hasOwnProperty.call(overrides, item.id) ? overrides[item.id] : undefined;
             const valid = typeof saved === 'number' && Number.isFinite(saved) && saved >= 0 && saved <= 10000;
             const next = valid ? saved : originalPrices.get(item.id);
@@ -33,6 +36,23 @@
     }
 
     const productsById = new Map(products.map((item) => [item.id, item]));
+    function applyCustomItems(items) {
+        // Most recently added item is FIRST immediately below its selected section heading.
+        const dynamic = items.map(item => {
+            const section = sections.find(section => section.id === item.sectionId);
+            return {...item, section:item.sectionId, sectionName:section?.name || '',
+                image:item.image || section?.image || ''};
+        });
+        products.splice(0, products.length,
+            ...dynamic, ...baseProducts.map(item => ({...item})));
+        productsById.clear();
+        for (const item of products) productsById.set(item.id, item);
+        applySharedPrices(lastCloudPrices);
+        for (const id of Object.keys(cart)) if (!productsById.has(id)) delete cart[id];
+        updateCartBadge();
+        if (!$('home').hidden) renderMenu();
+        if (!$('drawer').hidden) renderCart();
+    }
     let activeSection = sections[0]?.id;
     let cart = {};
     let toastTimer;
@@ -175,6 +195,12 @@
             const price = document.createElement('p');
             price.textContent = product.price == null ? 'السعر قريبًا' : formatMoney(product.price);
             info.append(name, price);
+            if (product.description) {
+                const description = document.createElement('small');
+                description.className = 'item-description';
+                description.textContent = product.description;
+                info.append(description);
+            }
 
             if (query) {
                 const sectionButton = document.createElement('button');
@@ -483,7 +509,11 @@
 
     // Live Firestore updates without any visual changes to the customer menu.
     if (window.LIWAN_SYNC && window.LIWAN_SYNC.configured) {
+        window.LIWAN_SYNC.listenMenuItems((items) => applyCustomItems(items), error => {
+            console.warn('LIWAN: added menu items sync unavailable:', error);
+        });
         window.LIWAN_SYNC.listenPrices((prices) => {
+            lastCloudPrices = prices;
             if (!applySharedPrices(prices)) return;
             if (!$('home').hidden) renderMenu();
             if (!$('drawer').hidden) renderCart();

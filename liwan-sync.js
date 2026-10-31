@@ -46,6 +46,61 @@
       err => { onError?.(err); }
     );
   }
+  const validName = name => typeof name === 'string' && name.trim().length > 0 && name.trim().length <= 120;
+  const validImage = image => typeof image === 'string' && image.length <= 400 &&
+    (!image || /^https:\/\/[^\s]+$/.test(image) || /^images\/[a-zA-Z0-9_./%()\- ]+$/.test(image));
+  const sectionIds = new Set((window.LIWAN_SECTIONS || []).map(section => section.id));
+  function listenMenuItems(onItems, onError) {
+    if (!db) { onError?.(new Error(error)); return () => {}; }
+    return db.collection('menuItems').onSnapshot(snapshot => {
+      const items = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data(), isCustom: true }))
+        .filter(item => item.id.startsWith('new-') && validName(item.name) &&
+          validPrice(item.price) && sectionIds.has(item.sectionId) && validImage(item.image || ''));
+      const sortTime = item => item.createdAt?.toMillis?.() ??
+        ((item.createdAt?.seconds || 0) * 1000 + (item.createdAt?.nanoseconds || 0) / 1000000);
+      items.sort((a,b) => sortTime(b) - sortTime(a) || b.id.localeCompare(a.id));
+      onItems(items, !!snapshot.metadata.fromCache);
+    }, error => onError?.(error));
+  }
+  function validateItem(form) {
+    const name = typeof form.name === 'string' ? form.name.trim() : '';
+    const sectionId = form.sectionId;
+    const price = Number(form.price);
+    const image = typeof form.image === 'string' ? form.image.trim() : '';
+    const description = typeof form.description === 'string' ? form.description.trim() : '';
+    if (!sectionIds.has(sectionId)) throw new Error('اختر قسماً صحيحاً.');
+    if (!validName(name)) throw new Error('اسم الصنف مطلوب ولا يزيد عن 120 حرفاً.');
+    if (!validPrice(price)) throw new Error('أدخل سعراً بين 0 و10000.');
+    if (!validImage(image)) throw new Error('استخدم رابط صورة HTTPS أو مسارًا يبدأ بـ images/ فقط.');
+    if (description.length > 250) throw new Error('الوصف طويل جداً.');
+    return { name, sectionId, price, image, description };
+  }
+  async function requireOwner() {
+    if (!db || !auth || !await isOwner(auth.currentUser))
+      throw new Error('يجب تسجيل دخول المالك أولاً.');
+    return auth.currentUser.uid;
+  }
+  async function addMenuItem(form) {
+    const uid = await requireOwner();
+    const item = validateItem(form);
+    const ref = db.collection('menuItems').doc();
+    // The ID is generated automatically; only the authenticated owner can create a document.
+    const target = db.collection('menuItems').doc('new-' + ref.id);
+    await target.set({ ...item, createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp(), createdBy: uid, updatedBy: uid });
+    return target.id;
+  }
+  async function updateMenuItem(id, form) {
+    const uid = await requireOwner();
+    if (!/^new-[A-Za-z0-9]{20}$/.test(id)) throw new Error('هذا الصنف ليس من إضافات المالك.');
+    await db.collection('menuItems').doc(id).update({ ...validateItem(form),
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp(), updatedBy: uid });
+  }
+  async function deleteMenuItem(id) {
+    await requireOwner();
+    if (!/^new-[A-Za-z0-9]{20}$/.test(id)) throw new Error('لا يمكن حذف صنف من المنيو الأصلي هنا.');
+    await db.collection('menuItems').doc(id).delete();
+  }
   async function isOwner(user) {
     // A UI-only check; authorization is ultimately enforced by firestore.rules.
     return !!user && ownerReady && user.uid === ownerUid &&
@@ -72,13 +127,22 @@
     if (!/^[a-zA-Z0-9-]{1,80}$/.test(item.id))
       throw new Error('معرّف الصنف غير صحيح.');
     const batch = db.batch();
-    const ref = db.collection('menuPrices').doc(item.id);
-    if (newPrice === item.price) batch.delete(ref);
-    else batch.set(ref, {
-      price: newPrice,
-      updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
-      updatedBy: auth.currentUser.uid
-    });
+    if (item.isCustom) {
+      if (!/^new-[A-Za-z0-9]{20}$/.test(item.id)) throw new Error('معرّف غير صالح.');
+      batch.update(db.collection('menuItems').doc(item.id), {
+        price: newPrice,
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+        updatedBy: auth.currentUser.uid
+      });
+    } else {
+      const ref = db.collection('menuPrices').doc(item.id);
+      if (newPrice === item.price) batch.delete(ref);
+      else batch.set(ref, {
+        price: newPrice,
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+        updatedBy: auth.currentUser.uid
+      });
+    }
     batch.set(db.collection('priceHistory').doc(), {
       productId: item.id,
       productName: item.name,
@@ -89,5 +153,6 @@
     await batch.commit();
   }
   window.LIWAN_SYNC = {configured:!!db,ownerReady,error,auth,
-    listenPrices,listenHistory,isOwner,loginWithPassword,savePrice};
+    listenPrices,listenHistory,listenMenuItems,addMenuItem,updateMenuItem,deleteMenuItem,
+    isOwner,loginWithPassword,savePrice};
 })();
