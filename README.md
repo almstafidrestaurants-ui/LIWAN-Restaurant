@@ -1,3 +1,1 @@
-# LIWAN Restaurant — PASS.Text Demo
-
-See [README-PASS-AR.md](README-PASS-AR.md). This is a **client-side demo, not secure authentication** and not suitable for production use on GitHub Pages.
+LIWAN Restaurant: password-only owner login (via Firebase Authentication) and shared real-time prices (Firestore). See README-FIREBASE-AR.md.

@@ -19,28 +19,18 @@
         }));
     });
 
-    // OWNER DEMO: read local price changes from this browser only.
-    // The public menu design stays identical; production sync requires Firebase.
-    const pricePreviewKey = 'liwan-owner-demo-prices-v1';
+    // Shared Firestore price overrides; base prices remain available if offline.
     const originalPrices = new Map(products.map(item => [item.id, item.price]));
-    function loadPreviewPrices() {
-        let overrides = {};
-        try {
-            const saved = JSON.parse(localStorage.getItem(pricePreviewKey) || '{}');
-            if (saved && saved.prices && typeof saved.prices === 'object' && !Array.isArray(saved.prices)) {
-                overrides = saved.prices;
-            }
-        } catch (_) { /* Keep the original prices if browser storage is unavailable. */ }
+    function applySharedPrices(overrides) {
         let changed = false;
         for (const item of products) {
-            const saved = Object.prototype.hasOwnProperty.call(overrides, item.id) ? overrides[item.id] : null;
+            const saved = Object.prototype.hasOwnProperty.call(overrides, item.id) ? overrides[item.id] : undefined;
             const valid = typeof saved === 'number' && Number.isFinite(saved) && saved >= 0 && saved <= 10000;
-            const price = valid ? saved : originalPrices.get(item.id);
-            if (item.price !== price) { item.price = price; changed = true; }
+            const next = valid ? saved : originalPrices.get(item.id);
+            if (item.price !== next) { item.price = next; changed = true; }
         }
         return changed;
     }
-    loadPreviewPrices();
 
     const productsById = new Map(products.map((item) => [item.id, item]));
     let activeSection = sections[0]?.id;
@@ -491,16 +481,17 @@
     window.addEventListener('scroll', updateReadingProgress, { passive: true });
     window.addEventListener('resize', updateReadingProgress, { passive: true });
 
-    // Refresh while returning from the owner's preview page. No admin UI is shown to visitors.
-    function refreshPricePreview() {
-        if (!loadPreviewPrices()) return;
-        if (!$('home').hidden) renderMenu();
-        if (!$('drawer').hidden) renderCart();
+    // Live Firestore updates without any visual changes to the customer menu.
+    if (window.LIWAN_SYNC && window.LIWAN_SYNC.configured) {
+        window.LIWAN_SYNC.listenPrices((prices) => {
+            if (!applySharedPrices(prices)) return;
+            if (!$('home').hidden) renderMenu();
+            if (!$('drawer').hidden) renderCart();
+        }, (error) => {
+            // If Firebase is temporarily unreachable, the menu still works with last known/base prices.
+            console.warn('LIWAN: price sync unavailable:', error);
+        });
     }
-    window.addEventListener('focus', refreshPricePreview);
-    window.addEventListener('storage', (event) => {
-        if (event.key === pricePreviewKey) refreshPricePreview();
-    });
 
     $('explore').addEventListener('click', showHome);
     splashTimer = setTimeout(showHome, 2600);
