@@ -10,23 +10,30 @@
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="owner.css">
   <script defer src="menu-data.js"></script>
-  <script defer src="pass-gate.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/13.1.0/firebase-app-compat.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/13.1.0/firebase-auth-compat.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore-compat.js"></script>
+  <script defer src="firebase-config.js"></script>
+  <script defer src="liwan-sync.js"></script>
+  <script defer src="owner-auth.js"></script>
 </head>
 <body>
-  <div class="preview-banner" role="note">معاينة تجريبية فقط — التعديلات على هذا المتصفح، وليست منشورة لزبائن الموقع</div>
+  <div class="preview-banner" role="note">تعديل مباشر للأسعار — تظهر التعديلات على أجهزة الزبائن عند تفعيل الربط بـ Firebase</div>
   <section class="login-page" id="loginPage" aria-labelledby="loginTitle">
     <form class="login-card card" id="loginForm" autocomplete="off">
       <img src="images/logo.png" alt="LIWAN" class="login-logo">
       <p class="eyebrow">LIWAN RESTAURANT</p>
       <h1 id="loginTitle">دخول صاحب المطعم</h1>
-      <p class="subtext">اكتب الرمز المحدد في ملف <code>PASS.Text</code> لعرض لوحة تعديل الأسعار.</p>
+      <p class="subtext">سجّل الدخول بحساب صاحب المطعم المفعّل في Firebase Authentication.</p>
+      <label for="loginEmail">البريد الإلكتروني لصاحب المطعم</label>
+      <input id="loginEmail" type="email" autocomplete="username" required placeholder="owner@example.com" dir="ltr">
       <label for="loginPassword">كلمة المرور</label>
-      <input id="loginPassword" type="password" inputmode="numeric" autocomplete="off" required placeholder="كلمة المرور" aria-describedby="loginStatus">
+      <input id="loginPassword" type="password" autocomplete="current-password" required placeholder="كلمة المرور" aria-describedby="loginStatus">
       <button type="submit" class="login-submit" id="loginButton">دخول</button>
       <p id="loginStatus" class="login-status" role="status" aria-live="polite"></p>
       <a class="view-menu" href="index.html">العودة إلى منيو الزبون</a>
     </form>
-    <p class="disclaimer login-warning"><strong>تنبيه:</strong> كلمة المرور داخل ملف عام ويمكن لأي زائر قراءة الملف أو تجاوز هذه الواجهة. هذا قفل تجريبي فقط، وليس حماية حقيقية.</p>
+    <p class="disclaimer login-warning">هذه الصفحة تستخدم Firebase Authentication. يُسمح بالتعديل لصاحب المطعم المحدد في قواعد Firestore فقط.</p>
   </section>
   <header class="topbar" id="ownerTopbar" hidden>
     <div class="brand"><img src="images/logo.png" alt="LIWAN"><div><strong>LIWAN</strong><span>لوحة صاحب المطعم</span></div></div>
@@ -39,7 +46,7 @@
     </section>
     <section class="stats" aria-label="ملخص المنيو">
       <div class="stat card"><small>عدد الأصناف</small><strong id="totalItems">0</strong><span>من المنيو الأصلي</span></div>
-      <div class="stat card"><small>الأسعار المعدّلة</small><strong id="editedItems">0</strong><span>في هذه المعاينة</span></div>
+      <div class="stat card"><small>الأسعار المعدّلة</small><strong id="editedItems">0</strong><span>على المنيو المباشر</span></div>
       <div class="stat card"><small>الحساب</small><strong class="account-name">صاحب المطعم</strong><span>Admin واحد فقط</span></div>
     </section>
     <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
@@ -56,10 +63,10 @@
       <div class="product-list" id="products"></div>
     </section>
     <section class="card" id="historyPanel" hidden>
-      <div class="section-heading"><div><h2>سجل التعديلات</h2><p class="subtext">تغييرات الأسعار التي حفظتها في هذه المعاينة.</p></div></div>
+      <div class="section-heading"><div><h2>سجل التعديلات</h2><p class="subtext">تغييرات الأسعار التي حفظتها على المنيو المباشر.</p></div></div>
       <div id="history"></div>
     </section>
-    <p class="disclaimer"><strong>مهم:</strong> هذه نسخة لمشاهدة الفكرة مع فحص شكلي لكلمة المرور من الملف PASS.Text، ولا تحتوي على حماية حقيقية. حتى تكون لوحة الإدارة متاحة لصاحب المطعم وحده وتتزامن الأسعار مع جميع الزبائن على GitHub Pages، نحتاج ربطها بـ Firebase Authentication وFirestore وقواعد الأمان.</p>
+    <p class="disclaimer"><strong>مهم:</strong> لإجراء تحديثات حقيقية يجب إعداد Firebase Auth وFirestore ونشر قواعد الأمان من الملف firestore.rules. لا تستخدم ملف PASS.Text العام للتحكم بالصلاحيات.</p>
   </main>
 </body>
 </html>

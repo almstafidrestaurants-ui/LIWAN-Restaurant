@@ -7,7 +7,7 @@ const sections = [
       {
         "id": "s1-1",
         "name": "لحم شقف غنم مشوي",
-        "price": 25,
+        "price": 22,
         "image": "images/menu/Grilled lamb chunks.webp"
       },
       {

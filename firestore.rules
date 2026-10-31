@@ -1,0 +1,37 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Replace OWNER_UID_HERE with Firebase Authentication UID, then publish rules.
+    function isOwner() {
+      return request.auth != null && request.auth.uid == 'OWNER_UID_HERE';
+    }
+    match /menuPrices/{productId} {
+      allow read: if true;
+      allow create, update: if isOwner()
+        && request.resource.data.keys().hasOnly(['price', 'updatedAt', 'updatedBy'])
+        && request.resource.data.keys().hasAll(['price', 'updatedAt', 'updatedBy'])
+        && request.resource.data.price is number
+        && request.resource.data.price >= 0
+        && request.resource.data.price <= 10000
+        && request.resource.data.updatedAt == request.time
+        && request.resource.data.updatedBy == request.auth.uid;
+      allow delete: if isOwner();
+    }
+    match /priceHistory/{historyId} {
+      allow read: if isOwner();
+      allow create: if isOwner()
+        && request.resource.data.keys().hasOnly(['productId','productName','oldPrice','newPrice','at','updatedBy'])
+        && request.resource.data.keys().hasAll(['productId','productName','oldPrice','newPrice','at','updatedBy'])
+        && request.resource.data.productId is string
+        && request.resource.data.productName is string
+        && request.resource.data.productName.size() <= 150
+        && request.resource.data.oldPrice is number
+        && request.resource.data.newPrice is number
+        && request.resource.data.oldPrice >= 0 && request.resource.data.oldPrice <= 10000
+        && request.resource.data.newPrice >= 0 && request.resource.data.newPrice <= 10000
+        && request.resource.data.at == request.time
+        && request.resource.data.updatedBy == request.auth.uid;
+      allow update, delete: if false;
+    }
+  }
+}
