@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#0b1512">
+  <title>LIWAN | لوحة صاحب المطعم</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="owner.css">
+  <script defer src="menu-data.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/13.1.0/firebase-app-compat.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/13.1.0/firebase-auth-compat.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore-compat.js"></script>
+  <script defer src="firebase-config.js"></script>
+  <script defer src="liwan-sync.js"></script>
+  <script defer src="owner-auth.js"></script>
+</head>
+<body>
+  <div class="preview-banner" role="note">تعديل مباشر للأسعار — تظهر التعديلات على أجهزة الزبائن عند تفعيل الربط بـ Firebase</div>
+  <section class="login-page" id="loginPage" aria-labelledby="loginTitle">
+    <form class="login-card card" id="loginForm" autocomplete="off">
+      <img src="images/logo.png" alt="LIWAN" class="login-logo">
+      <p class="eyebrow">LIWAN RESTAURANT</p>
+      <h1 id="loginTitle">دخول صاحب المطعم</h1>
+      <p class="subtext">أدخل كلمة المرور فقط، دون بريد إلكتروني.</p>
+      <label for="loginPassword">كلمة المرور</label>
+      <input id="loginPassword" type="password" autocomplete="current-password" required placeholder="كلمة المرور" aria-describedby="loginStatus">
+      <button type="submit" class="login-submit" id="loginButton">دخول</button>
+      <p id="loginStatus" class="login-status" role="status" aria-live="polite"></p>
+      <a class="view-menu" href="index.html">العودة إلى منيو الزبون</a>
+    </form>
+    <p class="disclaimer login-warning">دخول بكلمة مرور واحدة؛ يتولى Firebase التحقق من حساب المالك، ولا يظهر البريد الإلكتروني في شاشة الدخول.</p>
+  </section>
+  <header class="topbar" id="ownerTopbar" hidden>
+    <div class="brand"><img src="images/logo.png" alt="LIWAN"><div><strong>LIWAN</strong><span>لوحة صاحب المطعم</span></div></div>
+    <div class="topbar-actions"><a class="view-menu" href="index.html" target="_blank" rel="noopener">مشاهدة منيو الزبون <span aria-hidden="true">↗</span></a><button type="button" class="view-menu exit-button" id="logoutButton">خروج</button></div>
+  </header>
+  <main class="container" id="ownerDashboard" hidden>
+    <section class="welcome card">
+      <div><p class="eyebrow">إدارة المطعم</p><h1>أهلاً بك في لوحة LIWAN</h1><p class="subtext">من هنا يستطيع صاحب المطعم تعديل أسعار أصناف المنيو. شاشة الزبون تبقى كما كانت من دون أي خيارات إدارية.</p></div>
+      <div class="welcome-mark" aria-hidden="true">LIWAN <span>✦</span></div>
+    </section>
+    <section class="stats" aria-label="ملخص المنيو">
+      <div class="stat card"><small>عدد الأصناف</small><strong id="totalItems">0</strong><span>من المنيو الأصلي</span></div>
+      <div class="stat card"><small>الأسعار المعدّلة</small><strong id="editedItems">0</strong><span>على المنيو المباشر</span></div>
+      <div class="stat card"><small>الحساب</small><strong class="account-name">صاحب المطعم</strong><span>Admin واحد فقط</span></div>
+    </section>
+    <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+    <nav class="tabs" aria-label="أقسام لوحة التحكم">
+      <button type="button" data-panel="prices" class="active">أسعار المنتجات</button>
+      <button type="button" data-panel="history">سجل التعديلات</button>
+    </nav>
+    <section class="card" id="pricesPanel">
+      <div class="section-heading"><div><h2>تعديل الأسعار</h2><p class="subtext">اختر صنفاً، عدّل السعر، ثم اضغط حفظ.</p></div><span class="count" id="filteredCount">0 صنف</span></div>
+      <div class="filters">
+        <input type="search" id="search" placeholder="ابحث عن اسم الصنف..." aria-label="ابحث عن صنف">
+        <select id="category" aria-label="اختر القسم"><option value="">جميع الأقسام</option></select>
+      </div>
+      <div class="product-list" id="products"></div>
+    </section>
+    <section class="card" id="historyPanel" hidden>
+      <div class="section-heading"><div><h2>سجل التعديلات</h2><p class="subtext">تغييرات الأسعار التي حفظتها على المنيو المباشر.</p></div></div>
+      <div id="history"></div>
+    </section>
+    <p class="disclaimer"><strong>مهم:</strong> تُحفظ الأسعار مباشرة في Firestore بعد الضغط على حفظ، ويمنع النظام الزبائن من التعديل.</p>
+  </main>
+</body>
+</html>
