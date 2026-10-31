@@ -19,10 +19,12 @@
         }));
     });
     const products = baseProducts.map(item => ({...item}));
-
-    // Shared Firestore price overrides; base prices remain available if offline.
     const originalPrices = new Map(baseProducts.map(item => [item.id, item.price]));
     let lastCloudPrices = Object.create(null);
+    let liveCustomItems = [];
+    let liveOverrides = Object.create(null);
+    let livePhotos = Object.create(null);
+    const productsById = new Map(products.map(item => [item.id, item]));
     function applySharedPrices(overrides) {
         let changed = false;
         for (const item of products) {
@@ -34,25 +36,28 @@
         }
         return changed;
     }
-
-    const productsById = new Map(products.map((item) => [item.id, item]));
-    function applyCustomItems(items) {
-        // Most recently added item is FIRST immediately below its selected section heading.
-        const dynamic = items.map(item => {
-            const section = sections.find(section => section.id === item.sectionId);
+    function rebuildProducts() {
+        const dynamic = liveCustomItems.map(item => {
+            const section = sections.find(s => s.id === item.sectionId);
             return {...item, section:item.sectionId, sectionName:section?.name || '',
-                image:item.image || section?.image || ''};
+                image:livePhotos[item.id] || item.image || section?.image || ''};
         });
-        products.splice(0, products.length,
-            ...dynamic, ...baseProducts.map(item => ({...item})));
+        const original = baseProducts.map(item => {
+            const changes = liveOverrides[item.id] || {};
+            return {...item, name: changes.name || item.name,
+                description: changes.description ?? item.description,
+                image: livePhotos[item.id] || changes.image || item.image};
+        });
+        products.splice(0, products.length, ...dynamic, ...original);
         productsById.clear();
-        for (const item of products) productsById.set(item.id, item);
+        for (const item of products) productsById.set(item.id,item);
         applySharedPrices(lastCloudPrices);
         for (const id of Object.keys(cart)) if (!productsById.has(id)) delete cart[id];
         updateCartBadge();
         if (!$('home').hidden) renderMenu();
         if (!$('drawer').hidden) renderCart();
     }
+    function applyCustomItems(items) {liveCustomItems = items; rebuildProducts();}
     let activeSection = sections[0]?.id;
     let cart = {};
     let toastTimer;
@@ -512,6 +517,14 @@
         window.LIWAN_SYNC.listenMenuItems((items) => applyCustomItems(items), error => {
             console.warn('LIWAN: added menu items sync unavailable:', error);
         });
+        window.LIWAN_SYNC.listenMenuOverrides((items) => {
+            liveOverrides = items;
+            rebuildProducts();
+        }, error => console.warn('LIWAN: name sync unavailable:', error));
+        window.LIWAN_SYNC.listenMenuPhotos((items) => {
+            livePhotos = items;
+            rebuildProducts();
+        }, error => console.warn('LIWAN: photo sync unavailable:', error));
         window.LIWAN_SYNC.listenPrices((prices) => {
             lastCloudPrices = prices;
             if (!applySharedPrices(prices)) return;

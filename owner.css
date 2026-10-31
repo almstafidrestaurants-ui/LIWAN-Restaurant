@@ -38,3 +38,11 @@
 
 /* Keep owner tab names readable on narrow phones. */
 .tabs{flex-wrap:wrap}
+
+/* Phone gallery picker */
+.item-photo-preview{display:block;width:100%;max-width:320px;max-height:230px;object-fit:cover;border:1px solid #d8b47799;border-radius:12px;margin-top:7px}
+.item-photo-preview[hidden]{display:none}
+.clear-photo{align-self:flex-start;background:transparent;color:#f0d098;border:1px solid #9e956e;border-radius:10px;padding:7px 11px;font-size:12px}
+.alternate-photo summary{cursor:pointer;font-size:12px;color:var(--muted);padding:8px 0}
+.alternate-photo label{margin-top:7px}
+input[type=file]{font-size:13px;letter-spacing:normal;direction:rtl;text-align:right}

@@ -50,6 +50,43 @@
   const validImage = image => typeof image === 'string' && image.length <= 400 &&
     (!image || /^https:\/\/[^\s]+$/.test(image) || /^images\/[a-zA-Z0-9_./%()\- ]+$/.test(image));
   const sectionIds = new Set((window.LIWAN_SECTIONS || []).map(section => section.id));
+  const baseItemIds = new Set((window.LIWAN_SECTIONS || []).flatMap(section => section.items.map(item => item.id)));
+  const photoIdValid = id => baseItemIds.has(id) || /^new-[A-Za-z0-9]{20}$/.test(id);
+  const photoDataValid = data => typeof data === 'string' && data.length <= 120000 &&
+    /^data:image\/jpeg;base64,[A-Za-z0-9+/=]+$/.test(data);
+  function listenMenuOverrides(onItems, onError) {
+    if (!db) { onError?.(new Error(error)); return () => {}; }
+    return db.collection('menuOverrides').onSnapshot(snapshot => {
+      const entries = Object.create(null);
+      snapshot.forEach(doc => {
+        const d = doc.data();
+        if (baseItemIds.has(doc.id) && validName(d.name) && validImage(d.image) &&
+            typeof d.description === 'string' && d.description.length <= 250)
+          entries[doc.id] = {name:d.name, image:d.image, description:d.description};
+      });
+      onItems(entries, !!snapshot.metadata.fromCache);
+    }, err => onError?.(err));
+  }
+  function listenMenuPhotos(onPhotos, onError) {
+    if (!db) { onError?.(new Error(error)); return () => {}; }
+    return db.collection('menuPhotos').onSnapshot(snapshot => {
+      const entries = Object.create(null);
+      snapshot.forEach(doc => {
+        const photo = doc.data()?.data;
+        if (photoIdValid(doc.id) && photoDataValid(photo)) entries[doc.id] = photo;
+      });
+      onPhotos(entries, !!snapshot.metadata.fromCache);
+    }, err => onError?.(err));
+  }
+  function photoBatch(batch, id, photoData, clearPhoto, uid) {
+    if (!photoIdValid(id)) throw new Error('معرّف الصورة غير صحيح.');
+    if (photoData) {
+      if (!photoDataValid(photoData)) throw new Error('حجم الصورة كبير جداً. اختر صورة أصغر.');
+      batch.set(db.collection('menuPhotos').doc(id), {data:photoData,
+        updatedAt:firebase.firestore.FieldValue.serverTimestamp(),updatedBy:uid});
+    } else if (clearPhoto) batch.delete(db.collection('menuPhotos').doc(id));
+  }
+
   function listenMenuItems(onItems, onError) {
     if (!db) { onError?.(new Error(error)); return () => {}; }
     return db.collection('menuItems').onSnapshot(snapshot => {
@@ -84,22 +121,57 @@
     const uid = await requireOwner();
     const item = validateItem(form);
     const ref = db.collection('menuItems').doc();
-    // The ID is generated automatically; only the authenticated owner can create a document.
     const target = db.collection('menuItems').doc('new-' + ref.id);
-    await target.set({ ...item, createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+    const batch = db.batch();
+    batch.set(target, { ...item, createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       updatedAt: firebase.firestore.FieldValue.serverTimestamp(), createdBy: uid, updatedBy: uid });
+    photoBatch(batch, target.id, form.photoData || '', false, uid);
+    await batch.commit();
     return target.id;
   }
   async function updateMenuItem(id, form) {
     const uid = await requireOwner();
     if (!/^new-[A-Za-z0-9]{20}$/.test(id)) throw new Error('هذا الصنف ليس من إضافات المالك.');
-    await db.collection('menuItems').doc(id).update({ ...validateItem(form),
+    const batch = db.batch();
+    batch.update(db.collection('menuItems').doc(id), { ...validateItem(form),
       updatedAt: firebase.firestore.FieldValue.serverTimestamp(), updatedBy: uid });
+    photoBatch(batch, id, form.photoData || '', !!form.clearPhoto, uid);
+    await batch.commit();
+  }
+  async function saveBaseItem(base, form, oldPrice) {
+    const uid = await requireOwner();
+    if (!baseItemIds.has(base.id)) throw new Error('الصنف الأصلي غير معروف.');
+    if (form.sectionId !== base.categoryId) throw new Error('لا يمكن نقل صنف أصلي لقسم آخر.');
+    const name = typeof form.name === 'string' ? form.name.trim() : '';
+    const description = typeof form.description === 'string' ? form.description.trim() : '';
+    const image = typeof form.image === 'string' && form.image.trim()
+      ? form.image.trim() : base.image;
+    const price = Number(form.price);
+    if (!validName(name) || description.length > 250 || !validImage(image) || !validPrice(price))
+      throw new Error('تحقق من اسم الصنف أو السعر أو الصورة.');
+    const batch = db.batch();
+    const ref = db.collection('menuOverrides').doc(base.id);
+    if (name === base.name && image === base.image && description === (base.description || ''))
+      batch.delete(ref);
+    else batch.set(ref, {name, image, description,
+      updatedAt:firebase.firestore.FieldValue.serverTimestamp(), updatedBy:uid});
+    photoBatch(batch, base.id, form.photoData || '', !!form.clearPhoto, uid);
+    if (price !== oldPrice) {
+      const pRef = db.collection('menuPrices').doc(base.id);
+      if (price === base.price) batch.delete(pRef);
+      else batch.set(pRef, {price, updatedAt:firebase.firestore.FieldValue.serverTimestamp(), updatedBy:uid});
+      batch.set(db.collection('priceHistory').doc(), {productId:base.id, productName:name,
+        oldPrice,newPrice:price,at:firebase.firestore.FieldValue.serverTimestamp(),updatedBy:uid});
+    }
+    await batch.commit();
   }
   async function deleteMenuItem(id) {
-    await requireOwner();
+    const uid = await requireOwner();
     if (!/^new-[A-Za-z0-9]{20}$/.test(id)) throw new Error('لا يمكن حذف صنف من المنيو الأصلي هنا.');
-    await db.collection('menuItems').doc(id).delete();
+    const batch = db.batch();
+    batch.delete(db.collection('menuItems').doc(id));
+    batch.delete(db.collection('menuPhotos').doc(id));
+    await batch.commit();
   }
   async function isOwner(user) {
     // A UI-only check; authorization is ultimately enforced by firestore.rules.
@@ -153,6 +225,6 @@
     await batch.commit();
   }
   window.LIWAN_SYNC = {configured:!!db,ownerReady,error,auth,
-    listenPrices,listenHistory,listenMenuItems,addMenuItem,updateMenuItem,deleteMenuItem,
+    listenPrices,listenHistory,listenMenuItems,listenMenuOverrides,listenMenuPhotos,addMenuItem,updateMenuItem,saveBaseItem,deleteMenuItem,
     isOwner,loginWithPassword,savePrice};
 })();

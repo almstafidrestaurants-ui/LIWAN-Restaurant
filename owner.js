@@ -6,6 +6,12 @@
   let customItems = [];
   const byId = new Map(items.map(item => [item.id, item]));
   let editingId = null;
+  let editingBase = false;
+  let selectedPhotoData = '';
+  let clearExistingPhoto = false;
+  let currentPhoto = '';
+  let cloudDetails = Object.create(null);
+  let cloudPhotos = Object.create(null);
   const sync = window.LIWAN_SYNC;
   const $ = id => document.getElementById(id);
   let cloudPrices = Object.create(null);
@@ -69,7 +75,9 @@
         catch(err){message('لم تنجح الاستعادة: '+(err.message||'فشل الاتصال'),true);}
         finally{setBusy(false);renderProducts();}
       });
-      actions.append(apply,reset);row.append(img,info,wrapper,actions);target.append(row);
+      const edit=document.createElement('button');edit.type='button';edit.className='restore';edit.textContent='تعديل الاسم والصورة';
+      edit.addEventListener('click',()=>openEditItem(item));
+      actions.append(apply,reset,edit);row.append(img,info,wrapper,actions);target.append(row);
     }
   }
   function renderHistory(){
@@ -91,32 +99,75 @@
     name:$('newItemName').value.trim(),
     price:$('newItemPrice').value.trim(),
     image:$('newItemImage').value.trim(),
-    description:$('newItemDescription').value.trim()
+    description:$('newItemDescription').value.trim(),
+    photoData:selectedPhotoData,
+    clearPhoto:clearExistingPhoto
   };}
+  function updatePreview(src){
+    const preview=$('itemPhotoPreview');
+    preview.hidden=!src;
+    if(src)preview.src=src;
+    else preview.removeAttribute('src');
+  }
   function resetItemForm(){
-    editingId=null;$('addItemForm').reset();$('addTitle').textContent='إضافة صنف جديد';
+    editingId=null;editingBase=false;selectedPhotoData='';clearExistingPhoto=false;currentPhoto='';
+    $('addItemForm').reset();$('newItemSection').disabled=false;
+    $('addTitle').textContent='إضافة صنف جديد';
     $('addItemButton').textContent='+ حفظ الصنف في القسم';$('cancelItemEdit').hidden=true;
+    $('photoStatus').textContent='اختر صورة من معرض الهاتف. سيتم تصغيرها تلقائيًا قبل الحفظ.';
+    $('clearItemPhoto').hidden=true;updatePreview('');
   }
   function openEditItem(item){
     editingId=item.id;
-    $('newItemSection').value=item.sectionId;
+    editingBase=!item.isCustom;
+    selectedPhotoData='';clearExistingPhoto=false;
+    $('newItemSection').value=item.isCustom?item.sectionId:item.categoryId;
+    $('newItemSection').disabled=editingBase;
     $('newItemName').value=item.name;
-    $('newItemPrice').value=String(item.price);
-    $('newItemImage').value=item.image || '';
+    $('newItemPrice').value=String(currentPrice(item));
+    const photoImage=cloudPhotos[item.id] || '';
+    $('newItemImage').value=photoImage ? '' : (item.image || '');
     $('newItemDescription').value=item.description || '';
+    currentPhoto=photoImage || item.image || '';
+    updatePreview(currentPhoto);
+    $('newItemPhoto').value='';
+    $('photoStatus').textContent='يمكنك اختيار صورة جديدة من معرض الهاتف لتغيير الصورة الحالية.';
+    $('clearItemPhoto').hidden=false;
     $('addTitle').textContent='تعديل الصنف: '+item.name;
-    $('addItemButton').textContent='حفظ التعديل';
+    $('addItemButton').textContent='حفظ الاسم والصورة والسعر';
     $('cancelItemEdit').hidden=false;
     document.querySelector('[data-panel="add"]').click();
     $('addItemForm').scrollIntoView({behavior:'smooth',block:'start'});
   }
+  $('newItemPhoto').addEventListener('change', async event => {
+    const file=event.target.files?.[0];
+    if(!file)return;
+    const button=$('addItemButton');button.disabled=true;
+    $('photoStatus').textContent='جارِ تجهيز الصورة...';
+    try {
+      selectedPhotoData=await window.LIWAN_PHOTO.compress(file);
+      clearExistingPhoto=false;
+      updatePreview(selectedPhotoData);
+      $('photoStatus').textContent='الصورة جاهزة للحفظ، الحجم التقريبي '+Math.round(selectedPhotoData.length/1024)+' كيلوبايت.';
+    }catch(err){
+      selectedPhotoData='';event.target.value='';
+      $('photoStatus').textContent='تعذر تجهيز الصورة. اختر صورة أخرى.';
+      message('الصورة غير مناسبة: '+(err.message||err),true);
+    }finally{button.disabled=false;}
+  });
+  $('clearItemPhoto').addEventListener('click',()=>{
+    selectedPhotoData='';clearExistingPhoto=true;currentPhoto='';
+    $('newItemPhoto').value='';$('newItemImage').value='';
+    updatePreview('');
+    $('photoStatus').textContent='ستعود صورة الصنف الأصلية أو صورة القسم بعد الحفظ.';
+  });
   function renderCustomItems(){
     const target=$('customItems');target.replaceChildren();
     $('customCount').textContent=customItems.length+' صنف';
     if(!customItems.length){const p=document.createElement('p');p.className='empty';p.textContent='لم تضف أصنافاً بعد.';target.append(p);return;}
     for(const item of customItems){
       const row=document.createElement('div');row.className='manage-item';
-      const img=document.createElement('img');img.src=item.image || sections.find(s=>s.id===item.sectionId)?.image || '';img.alt='';img.loading='lazy';
+      const img=document.createElement('img');img.src=cloudPhotos[item.id] || item.image || sections.find(s=>s.id===item.sectionId)?.image || '';img.alt='';img.loading='lazy';
       const info=document.createElement('div');info.className='manage-item-info';
       const name=document.createElement('strong');name.textContent=item.name;
       const meta=document.createElement('small');meta.textContent=(sections.find(s=>s.id===item.sectionId)?.name||'')+' · '+money(item.price);
@@ -139,9 +190,13 @@
     if(!/^\d+(?:\.\d{1,2})?$/.test(raw)||!Number.isFinite(n)||n>10000){message('أدخل سعراً صحيحاً بمنزلتين عشريتين كحد أقصى.',true);return;}
     const button=$('addItemButton');button.disabled=true;
     try{
-      if(editingId)await sync.updateMenuItem(editingId,input);
+      if(editingBase){
+        const original=baseItems.find(i=>i.id===editingId);
+        if(!original)throw new Error('تعذّر العثور على الصنف الأصلي.');
+        await sync.saveBaseItem(original,input,currentPrice(original));
+      }else if(editingId)await sync.updateMenuItem(editingId,input);
       else await sync.addMenuItem(input);
-      message(editingId?'تم تعديل الصنف في القسم المحدد.':'تمت إضافة الصنف في أول القسم المحدد لجميع الزبائن.');
+      message(editingBase?'تم تعديل الاسم والصورة والسعر في المنيو.':editingId?'تم تعديل الصنف في القسم المحدد.':'تمت إضافة الصنف في أول القسم المحدد لجميع الزبائن.');
       resetItemForm();
     }catch(error){message('تعذر حفظ الصنف: '+(error.message||error),true);}
     finally{button.disabled=false;}
@@ -162,14 +217,32 @@
   }));
   $('search').addEventListener('input',renderProducts);
   $('category').addEventListener('change',renderProducts);
+  function refreshAllItems(){
+    const original=baseItems.map(item=>{
+      const detail=cloudDetails[item.id] || {};
+      return {...item,name:detail.name || item.name,
+        description:detail.description ?? item.description,
+        image:cloudPhotos[item.id] || detail.image || item.image};
+    });
+    const custom=customItems.map(item=>({...item,categoryId:item.sectionId,
+      categoryName:sections.find(s=>s.id===item.sectionId)?.name || '',
+      image:cloudPhotos[item.id] || item.image || sections.find(s=>s.id===item.sectionId)?.image || ''}));
+    items=[...custom,...original];
+    byId.clear();for(const item of items)byId.set(item.id,item);
+    renderStats();renderProducts();renderCustomItems();
+  }
+  sync.listenMenuOverrides((changes,fromCache)=>{
+    if(fromCache)return;
+    cloudDetails=changes;refreshAllItems();
+  },error=>message('تعذر تحميل تعديلات الأسماء: '+(error.message||error),true));
+  sync.listenMenuPhotos((photos,fromCache)=>{
+    if(fromCache)return;
+    cloudPhotos=photos;refreshAllItems();
+  },error=>message('تعذر تحميل الصور: '+(error.message||error),true));
   sync.listenMenuItems((added, fromCache)=>{
     if(fromCache)return;
     customItems=added;
-    items=[...customItems.map(item=>({ ...item, categoryId:item.sectionId,
-      categoryName:sections.find(s=>s.id===item.sectionId)?.name || '',
-      image:item.image || sections.find(s=>s.id===item.sectionId)?.image || ''})),...baseItems];
-    byId.clear();for(const item of items)byId.set(item.id,item);
-    renderStats();renderProducts();renderCustomItems();
+    refreshAllItems();
   },error=>message('تعذر تحميل الأصناف الجديدة: '+(error.message||error),true));
   sync.listenPrices((prices, fromCache)=>{
     // Prevent unverified offline cached snapshots from enabling writes.

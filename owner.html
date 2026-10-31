@@ -16,6 +16,7 @@
   <script defer src="firebase-config.js"></script>
   <script defer src="liwan-sync.js"></script>
   <script defer src="owner-auth.js"></script>
+  <script defer src="liwan-photo.js"></script>
 </head>
 <body>
   <div class="preview-banner" role="note">تعديل مباشر للأسعار — تظهر التعديلات على أجهزة الزبائن عند تفعيل الربط بـ Firebase</div>
@@ -54,7 +55,7 @@
       <button type="button" data-panel="history">سجل التعديلات</button>
     </nav>
     <section class="card" id="pricesPanel">
-      <div class="section-heading"><div><h2>تعديل الأسعار</h2><p class="subtext">اختر صنفاً، عدّل السعر، ثم اضغط حفظ.</p></div><span class="count" id="filteredCount">0 صنف</span></div>
+      <div class="section-heading"><div><h2>تعديل الأسعار</h2><p class="subtext">يمكنك تغيير السعر أو فتح «تعديل الاسم والصورة» لأي صنف قديم أو جديد.</p></div><span class="count" id="filteredCount">0 صنف</span></div>
       <div class="filters">
         <input type="search" id="search" placeholder="ابحث عن اسم الصنف..." aria-label="ابحث عن صنف">
         <select id="category" aria-label="اختر القسم"><option value="">جميع الأقسام</option></select>
@@ -63,7 +64,7 @@
     </section>
     <section class="card" id="addPanel" hidden>
       <div class="section-heading">
-        <div><h2 id="addTitle">إضافة صنف جديد</h2><p class="subtext">اختر القسم أولاً؛ سيظهر الصنف الجديد مباشرة تحت عنوانه في منيو الزبائن.</p></div>
+        <div><h2 id="addTitle">إضافة صنف جديد</h2><p class="subtext">اختر القسم عند الإضافة، أو عدّل اسم وصورة أي صنف موجود مباشرة من قائمة الأسعار.</p></div>
       </div>
       <form id="addItemForm" class="add-item-form" autocomplete="off">
         <div class="form-field">
@@ -78,11 +79,18 @@
           <label for="newItemPrice">السعر بالدولار *</label>
           <input id="newItemPrice" type="number" min="0" max="10000" step="0.01" placeholder="12" required>
         </div>
-        <div class="form-field">
-          <label for="newItemImage">مسار صورة الصنف (اختياري)</label>
-          <input id="newItemImage" type="text" maxlength="400" dir="ltr" placeholder="images/menu/your-photo.webp">
-          <small>اترك الصورة فارغة لاستخدام صورة القسم. لإضافة صورة جديدة ارفعها أولًا إلى GitHub داخل images.</small>
+        <div class="form-field full">
+          <label for="newItemPhoto">صورة الصنف من معرض الهاتف (اختياري)</label>
+          <input id="newItemPhoto" type="file" accept="image/*">
+          <small id="photoStatus" aria-live="polite">اختر صورة من معرض الهاتف. سيتم تصغيرها تلقائيًا قبل الحفظ.</small>
+          <img id="itemPhotoPreview" class="item-photo-preview" alt="معاينة صورة الصنف" hidden>
+          <button type="button" id="clearItemPhoto" class="clear-photo" hidden>إزالة الصورة المختارة / العودة للصورة الأصلية</button>
         </div>
+        <details class="form-field full alternate-photo">
+          <summary>أو استخدام رابط صورة / مسار داخل الموقع (اختياري)</summary>
+          <label for="newItemImage">رابط الصورة</label>
+          <input id="newItemImage" type="text" maxlength="400" dir="ltr" placeholder="images/menu/photo.webp">
+        </details>
         <div class="form-field full">
           <label for="newItemDescription">وصف الصنف (اختياري)</label>
           <input id="newItemDescription" type="text" maxlength="250" placeholder="وصف قصير يظهر مع الصنف">
