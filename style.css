@@ -1,0 +1,1674 @@
+:root {
+    --bg:#0b0b0d;
+    --card:#1b1b1e;
+    --gold:#d3b16f;
+    --cream:#f6e9d0;
+    --muted:#aaa8a5;
+}
+
+* {
+    box-sizing:border-box;
+}
+
+html {
+    background:#090909;
+}
+
+body {
+    margin:0;
+    font-family:Cairo,Arial,sans-serif;
+    background:#090909;
+    color:#f8f5ed;
+}
+
+button,input,textarea {
+    font:inherit;
+}
+
+button {
+    cursor:pointer;
+}
+
+button:focus-visible,input:focus-visible {
+    outline:2px solid var(--gold);
+    outline-offset:2px;
+}
+
+[hidden] {
+    display:none!important;
+}
+
+.phone {
+    width:100%;
+    max-width:390px;
+    min-height:100dvh;
+    margin:auto;
+    background:var(--bg);
+    position:relative;
+    overflow:hidden;
+}
+
+.splash {
+    height:100dvh;
+    min-height:620px;
+    position:relative;
+    background:linear-gradient(180deg,#000b 0%,#0002 42%,#000e 100%),url('images/welcome.webp') center/cover,#14100c;
+}
+
+.splash-logo {
+    position:absolute;
+    top:6%;
+    left:50%;
+    transform:translateX(-50%);
+    width:138px;
+    max-height:150px;
+    object-fit:contain;
+}
+
+.splash-center {
+    position:absolute;
+    bottom:8%;
+    right:24px;
+    left:24px;
+    text-align:center;
+}
+
+.splash-line {
+    height:1px;
+    width:55px;
+    background:var(--gold);
+    margin:auto;
+}
+
+.splash-center p {
+    color:var(--cream);
+    font-size:13px;
+}
+
+.splash-center h1 {
+    font-size:33px;
+    line-height:1.6;
+}
+
+.splash-center em {
+    color:var(--gold);
+    font-style:normal;
+}
+
+.splash-center button {
+    background:transparent;
+    color:var(--cream);
+    border:1px solid var(--gold);
+    padding:13px 25px;
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+}
+
+.header {
+    height:93px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    padding:8px 20px;
+}
+
+.header-logo {
+    width:112px;
+    height:84px;
+    object-fit:contain;
+}
+
+.cart-top {
+    position:absolute;
+    left:18px;
+    top:29px;
+    border:1px solid #45403a;
+    color:var(--gold);
+    background:#171719;
+    border-radius:30px;
+    padding:5px 12px;
+    font-size:20px;
+}
+
+.cart-top span {
+    font-size:12px;
+}
+
+.heading {
+    padding:2px 19px 12px;
+}
+
+.heading p {
+    font-size:12px;
+    color:var(--gold);
+    margin:0;
+}
+
+.heading h1 {
+    font-size:23px;
+    margin:2px 0 0;
+}
+
+.search-wrap {
+    margin:0 16px 18px;
+    display:flex;
+    align-items:center;
+    border:1px solid #2d2d30;
+    background:#131315;
+    border-radius:13px;
+    padding:0 13px;
+    height:48px;
+    gap:9px;
+}
+
+.search-wrap span {
+    font-size:29px;
+    color:var(--gold);
+    line-height:1;
+}
+
+.search-wrap input {
+    background:transparent;
+    border:0;
+    outline:0;
+    color:#fff;
+    width:100%;
+    font-size:12px;
+}
+
+.tabs {
+    display:flex;
+    overflow-x:auto;
+    gap:8px;
+    padding:0 16px 14px;
+    scrollbar-width:none;
+}
+
+.tabs::-webkit-scrollbar {
+    display:none;
+}
+
+.tab {
+    white-space:nowrap;
+    border:1px solid #303033;
+    background:#171719;
+    color:#d8d5d0;
+    border-radius:25px;
+    padding:9px 15px;
+    font-size:12px;
+    flex-shrink:0;
+}
+
+.tab.active {
+    background:var(--gold);
+    color:#17120b;
+    border-color:var(--gold);
+    font-weight:800;
+}
+
+.section-head {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:7px 18px 13px;
+}
+
+.section-head h2 {
+    margin:0;
+    font-size:18px;
+}
+
+.section-head small {
+    color:var(--gold);
+    font-size:11px;
+}
+
+.items {
+    padding:0 15px 90px;
+}
+
+.item {
+    border:1px solid #2b2927;
+    background:var(--card);
+    border-radius:15px;
+    overflow:hidden;
+    margin-bottom:13px;
+}
+
+.item-photo {
+    width:100%;
+    height:155px;
+    object-fit:cover;
+    display:block;
+    background:#282522;
+}
+
+.item-body {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    padding:13px 13px 14px;
+}
+
+.item-info {
+    min-width:0;
+}
+
+.item-info h3 {
+    font-size:14px;
+    font-weight:700;
+    margin:0 0 4px;
+}
+
+.item-info p {
+    color:var(--gold);
+    font-size:14px;
+    font-weight:800;
+    margin:0;
+    direction:ltr;
+    text-align:right;
+}
+
+.add {
+    flex-shrink:0;
+    width:40px;
+    height:40px;
+    border-radius:11px;
+    border:1px solid var(--gold);
+    background:#30281c;
+    color:var(--cream);
+    font-size:26px;
+    line-height:1;
+}
+
+.empty {
+    color:#aaa;
+    text-align:center;
+    padding:40px 0;
+}
+
+.footnote {
+    text-align:center;
+    color:#756b5a;
+    font-size:10px;
+    padding:0 0 35px;
+}
+
+.cart-float {
+    position:fixed;
+    bottom:18px;
+    left:50%;
+    transform:translateX(-50%);
+    width:calc(100% - 36px);
+    max-width:354px;
+    background:var(--gold);
+    color:#1c160e;
+    border:0;
+    border-radius:12px;
+    padding:13px 18px;
+    font-weight:800;
+    display:flex;
+    justify-content:space-between;
+    box-shadow:0 8px 28px #0009;
+    z-index:5;
+}
+
+.drawer {
+    position:fixed;
+    inset:0;
+    z-index:20;
+    display:flex;
+    justify-content:center;
+    align-items:flex-end;
+}
+
+.drawer-shade {
+    position:absolute;
+    inset:0;
+    background:#000b;
+}
+
+.drawer-panel {
+    position:relative;
+    background:#19191b;
+    width:100%;
+    max-width:390px;
+    max-height:92dvh;
+    overflow:auto;
+    border-radius:22px 22px 0 0;
+    padding:20px 18px 28px;
+}
+
+.drawer-title {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.drawer-title h2 {
+    margin:0 0 14px;
+    font-size:20px;
+}
+
+.drawer-title button {
+    background:none;
+    color:#fff;
+    border:0;
+    font-size:20px;
+}
+
+.cart-line {
+    padding:13px 0;
+    border-bottom:1px solid #333;
+}
+
+.cart-line strong {
+    display:block;
+    font-size:13px;
+}
+
+.cart-line small {
+    color:var(--gold);
+}
+
+.cart-actions {
+    display:flex;
+    gap:8px;
+    align-items:center;
+    margin-top:8px;
+}
+
+.cart-actions button {
+    background:#2d2b29;
+    color:#fff;
+    border:1px solid #555;
+    border-radius:7px;
+    width:30px;
+    height:30px;
+}
+
+.cart-actions .remove {
+    width:auto;
+    padding:0 10px;
+    margin-right:auto;
+    color:#e8b5ac;
+}
+
+.note-label {
+    display:block;
+    margin-top:17px;
+    font-size:13px;
+}
+
+textarea {
+    width:100%;
+    background:#101012;
+    color:#fff;
+    border:1px solid #45413b;
+    border-radius:9px;
+    padding:11px;
+    resize:vertical;
+    margin-top:8px;
+}
+
+.total-row {
+    display:flex;
+    justify-content:space-between;
+    margin:15px 0;
+    color:var(--cream);
+}
+
+.total-row strong:last-child {
+    color:var(--gold);
+}
+
+.order-site,.whatsapp {
+    display:block;
+    width:100%;
+    padding:12px;
+    border:0;
+    border-radius:9px;
+    font-size:12px;
+    font-weight:700;
+}
+
+.order-site {
+    background:#3a3834;
+    color:#a5a19b;
+    cursor:not-allowed;
+}
+
+.whatsapp {
+    background:var(--gold);
+    color:#1c170f;
+    margin-top:12px;
+}
+
+.site-help {
+    font-size:10px;
+    color:#a6a29b;
+    text-align:center;
+    margin:6px 0;
+}
+
+@media(min-width:391px) {
+    .phone {
+        box-shadow:0 0 0 1px #333;
+    }
+
+}
+
+@media(prefers-reduced-motion:reduce) {
+    * {
+        scroll-behavior:auto!important;
+    }
+
+}
+
+/* Horizontal categories: touch swipe + desktop drag */
+.tabs {
+    max-width:100%;
+    overscroll-behavior-x:contain;
+    touch-action:pan-x pan-y;
+    -webkit-overflow-scrolling:touch;
+    cursor:grab;
+    user-select:none;
+    -webkit-user-select:none;
+    scroll-behavior:smooth;
+}
+
+.tabs.dragging {
+    cursor:grabbing;
+    scroll-behavior:auto;
+}
+
+.tabs.dragging .tab {
+    pointer-events:none;
+}
+
+/* LIWAN refreshed: lighter, warmer menu and shopping basket */
+:root {
+    --bg:#f7f2e9;
+    --card:#fffdf8;
+    --gold:#c69d55;
+    --cream:#fff8e8;
+    --muted:#71675a;
+}
+
+.phone {
+    background:var(--bg);
+    color:#30281f;
+}
+
+#home {
+    background:linear-gradient(#fffaf1,#f7f2e9 340px);
+    min-height:100dvh;
+}
+
+.header {
+    background:#fffaf1;
+    border-bottom:1px solid #e8d9c0;
+}
+
+.heading p,.section-head small {
+    color:#a77933;
+}
+
+.heading h1,.section-head h2 {
+    color:#33271a;
+}
+
+.search-wrap {
+    background:#fff;
+    border-color:#e7d9c4;
+}
+
+.search-wrap input {
+    color:#2c261e;
+}
+
+.search-wrap input::placeholder {
+    color:#8d8378;
+}
+
+.tab {
+    background:#fff;
+    color:#51483c;
+    border-color:#e6d8c3;
+}
+
+.tab.active {
+    background:#c69d55;
+    color:#231c12;
+}
+
+.item {
+    background:#fff;
+    border-color:#e7ddcf;
+    box-shadow:0 5px 16px #66502c12;
+}
+
+.item-info h3 {
+    color:#30271d;
+}
+
+.item-info p {
+    color:#9c6d2c;
+}
+
+.add {
+    background:#c69d55;
+    color:#fff;
+    border:0;
+}
+
+.footnote {
+    color:#8a7963;
+}
+
+.menu-toggle {
+    position:absolute;
+    left:18px;
+    top:29px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    gap:5px;
+    width:39px;
+    height:38px;
+    border:0;
+    background:transparent;
+    padding:7px;
+    z-index:2;
+}
+
+.menu-toggle span {
+    display:block;
+    height:2px;
+    width:23px;
+    background:#9b702e;
+    border-radius:3px;
+}
+
+.cart-top {
+    left:auto;
+    right:17px;
+    top:28px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:43px;
+    height:43px;
+    padding:0;
+    border-radius:13px;
+    background:#fff4df;
+    border:1px solid #e8d6b5;
+    color:#91652c;
+}
+
+.cart-top span {
+    position:absolute;
+    top:-6px;
+    left:-5px;
+    min-width:19px;
+    height:19px;
+    border-radius:50%;
+    background:#b88b45;
+    color:#fff;
+    font-size:10px;
+    line-height:19px;
+    text-align:center;
+}
+
+.menu-panel {
+    position:absolute;
+    top:81px;
+    left:13px;
+    width:185px;
+    z-index:8;
+    background:#fff;
+    border:1px solid #e5d5b9;
+    border-radius:13px;
+    box-shadow:0 12px 32px #4a37252b;
+    padding:9px;
+}
+
+.menu-panel button {
+    display:block;
+    width:100%;
+    padding:11px;
+    background:transparent;
+    border:0;
+    text-align:right;
+    color:#473729;
+}
+
+.toast {
+    position:fixed;
+    bottom:22px;
+    left:50%;
+    transform:translateX(-50%);
+    width:max-content;
+    max-width:calc(100% - 28px);
+    padding:13px 18px;
+    border-radius:14px;
+    background:#fff9eb;
+    border:1px solid #d4b47c;
+    color:#5a421e;
+    font-weight:800;
+    font-size:12px;
+    box-shadow:0 9px 32px #4e3c2450;
+    z-index:12;
+    text-align:center;
+}
+
+.drawer-shade {
+    background:#201b18a6;
+}
+
+.drawer-panel {
+    background:#faf6ee;
+    color:#352a1e;
+    box-shadow:0 -14px 40px #0003;
+    padding:24px 18px 30px;
+    border-radius:25px 25px 0 0;
+}
+
+.drawer-kicker {
+    font-size:10px;
+    color:#b48a4b;
+    letter-spacing:1px;
+    font-weight:700;
+}
+
+.drawer-title {
+    padding-bottom:12px;
+    border-bottom:1px solid #e8d9c3;
+}
+
+.drawer-title h2 {
+    margin:1px 0 0;
+    color:#352a1e;
+}
+
+.drawer-title button {
+    color:#6a5540;
+    font-size:22px;
+}
+
+.cart-line {
+    display:flex;
+    align-items:center;
+    gap:13px;
+    padding:17px 0;
+    border-bottom:1px solid #e6dac9;
+}
+
+.cart-photo {
+    width:92px;
+    height:94px;
+    flex-shrink:0;
+    object-fit:cover;
+    border-radius:13px;
+    background:#e9d9c0;
+}
+
+.cart-details {
+    flex:1;
+    min-width:0;
+}
+
+.cart-details strong {
+    color:#33271a;
+    font-size:13px;
+    line-height:1.7;
+}
+
+.cart-details small {
+    display:block;
+    color:#aa7b39;
+    font-size:12px;
+    margin-top:3px;
+}
+
+.cart-actions {
+    margin-top:9px;
+    gap:7px;
+}
+
+.cart-actions button {
+    background:#fff;
+    border:1px solid #dfcdae;
+    color:#74542d;
+    border-radius:9px;
+    width:32px;
+    height:32px;
+    font-size:16px;
+}
+
+.cart-actions .remove {
+    color:#b45047;
+    background:#fff9f7;
+    font-size:11px;
+}
+
+.note-label {
+    font-weight:800;
+    color:#4d3a27;
+}
+
+textarea {
+    background:#fff;
+    color:#352a1e;
+    border-color:#e0cfb3;
+    min-height:95px;
+}
+
+textarea::placeholder {
+    color:#9a8c7c;
+}
+
+.total-row {
+    background:#fff0d7;
+    border-radius:13px;
+    padding:16px;
+    color:#4d351d;
+}
+
+.total-row strong:last-child {
+    color:#a4722c;
+}
+
+.whatsapp {
+    background:#c69d55;
+    color:#fff;
+    padding:15px;
+    font-size:14px;
+    border-radius:13px;
+}
+
+.whatsapp:disabled {
+    opacity:.45;
+}
+
+.site-help {
+    color:#8a7964;
+}
+
+@media(min-width:391px) {
+    .drawer {
+        max-width:390px;
+        left:50%;
+        transform:translateX(-50%);
+    }
+
+}
+
+/* LIWAN balanced evening palette: soft charcoal + warm taupe + muted gold */
+:root {
+    --bg:#292622;
+    --card:#38332d;
+    --gold:#d0ab6d;
+    --cream:#f3e5cc;
+    --muted:#b9aa95;
+}
+
+html,body {
+    background:#1b1917;
+    color:#f3e9dc;
+}
+
+.phone {
+    background:var(--bg);
+    color:#f3e9dc;
+}
+
+#home {
+    background:linear-gradient(180deg,#332d27 0,#292622 330px,#292622 100%);
+}
+
+.header {
+    background:#332d27;
+    border-bottom:1px solid #594b3c;
+}
+
+.heading p,.section-head small {
+    color:#d6ae71;
+}
+
+.heading h1,.section-head h2 {
+    color:#f4e7d5;
+}
+
+.search-wrap {
+    background:#423b34;
+    border-color:#685746;
+}
+
+.search-wrap input {
+    color:#fff4e7;
+}
+
+.search-wrap input::placeholder {
+    color:#c1b2a1;
+}
+
+.search-wrap span {
+    color:#e2b76c;
+}
+
+.tab {
+    background:#403931;
+    color:#f0dfc7;
+    border-color:#655646;
+}
+
+.tab.active {
+    background:#d1ac70;
+    color:#2a2018;
+    border-color:#d1ac70;
+}
+
+.item {
+    background:#39342e;
+    border-color:#5b4d3f;
+    box-shadow:0 5px 20px #120f0b36;
+}
+
+.item-info h3 {
+    color:#f6e9d9;
+}
+
+.item-info p {
+    color:#e2bb80;
+}
+
+.add {
+    background:#cda66a;
+    color:#241b12;
+    border:0;
+}
+
+.footnote {
+    color:#b6a28b;
+}
+
+.menu-toggle span {
+    background:#e0b77b;
+}
+
+.cart-top {
+    background:#473b2e;
+    border-color:#816846;
+    color:#f4d4a0;
+}
+
+.cart-top span {
+    background:#d0a25e;
+    color:#2a2118;
+}
+
+.menu-panel {
+    background:#40372e;
+    border-color:#79634b;
+    box-shadow:0 12px 32px #0006;
+}
+
+.menu-panel button {
+    color:#f1e1cb;
+}
+
+.toast {
+    background:#e7d4b3;
+    border-color:#d4ac6c;
+    color:#362a1c;
+}
+
+.drawer-shade {
+    background:#15100cb3;
+}
+
+.drawer-panel {
+    background:#e6ddce;
+    color:#382e25;
+    box-shadow:0 -14px 40px #0005;
+}
+
+.drawer-title {
+    border-color:#cbbca6;
+}
+
+.drawer-title h2 {
+    color:#342a21;
+}
+
+.drawer-title button {
+    color:#604d3b;
+}
+
+.drawer-kicker {
+    color:#9d723d;
+}
+
+.cart-line {
+    border-color:#cbbca7;
+}
+
+.cart-details strong {
+    color:#34291e;
+}
+
+.cart-details small {
+    color:#916b3c;
+}
+
+.cart-actions button {
+    background:#f4ecdf;
+    border-color:#c9b69c;
+    color:#59442c;
+}
+
+.cart-actions .remove {
+    background:#f4e6dd;
+    color:#a34c42;
+}
+
+.note-label {
+    color:#463729;
+}
+
+textarea {
+    background:#f7f1e8;
+    color:#342b22;
+    border-color:#cdbda6;
+}
+
+.total-row {
+    background:#d9c8ad;
+    color:#3f3021;
+}
+
+.total-row strong:last-child {
+    color:#765026;
+}
+
+.whatsapp {
+    background:#a77c43;
+    color:#fffaf2;
+}
+
+@media(min-width:391px) {
+    .phone {
+        box-shadow:0 0 0 1px #5e5042;
+    }
+
+}
+
+/* LIWAN: dark premium home + retained warm beige cart */
+:root {
+    --bg:#101012;
+    --card:#1c1b1d;
+    --gold:#d3b16f;
+    --cream:#f6e9d0;
+    --muted:#aaa8a5;
+}
+
+html,body {
+    background:#090909;
+    color:#f8f5ed;
+}
+
+.phone {
+    background:var(--bg);
+    color:#f8f5ed;
+}
+
+#home {
+    background:linear-gradient(180deg,#171518 0%,#101012 310px,#101012 100%);
+}
+
+.header {
+    background:#171518;
+    border-bottom:1px solid #37312b;
+}
+
+.heading p,.section-head small {
+    color:#d3b16f;
+}
+
+.heading h1,.section-head h2 {
+    color:#f7ebd8;
+}
+
+.search-wrap {
+    background:#211f20;
+    border-color:#40382f;
+}
+
+.search-wrap input {
+    color:#fff7ed;
+}
+
+.search-wrap input::placeholder {
+    color:#aaa09a;
+}
+
+.search-wrap span {
+    color:#d3b16f;
+}
+
+.tab {
+    background:#242124;
+    color:#e7ddd2;
+    border-color:#4a4037;
+}
+
+.tab.active {
+    background:#d3b16f;
+    color:#241a10;
+    border-color:#d3b16f;
+}
+
+.item {
+    background:#242123;
+    border-color:#483d34;
+    box-shadow:0 5px 20px #0004;
+}
+
+.item-info h3 {
+    color:#fff0dc;
+}
+
+.item-info p {
+    color:#dfb87a;
+}
+
+.add {
+    background:#d3b16f;
+    color:#20170e;
+    border:0;
+}
+
+.footnote {
+    color:#9f9081;
+}
+
+.menu-toggle span {
+    background:#d3b16f;
+}
+
+.cart-top {
+    background:#2b251e;
+    border-color:#745a37;
+    color:#f3ce8e;
+}
+
+.cart-top span {
+    background:#d3b16f;
+    color:#21180f;
+}
+
+.menu-panel {
+    background:#292427;
+    border-color:#65513e;
+}
+
+.menu-panel button {
+    color:#f7e9d5;
+}
+
+.toast {
+    background:#e7d4b3;
+    border-color:#d4ac6c;
+    color:#362a1c;
+}
+
+/* Cart colors intentionally unchanged: beige drawer from prior approved version. */
+/* Cart redesign: centered mobile-sized overlay, product rows and subtotal */
+.drawer {
+    position:fixed;
+    inset:0;
+    z-index:100;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    transform:none;
+    max-width:none;
+    left:0;
+    right:0;
+}
+
+.drawer-shade {
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,.72);
+}
+
+.drawer-panel {
+    position:relative;
+    width:min(390px,calc(100vw - 24px));
+    max-width:390px;
+    max-height:min(88dvh,850px);
+    overflow-y:auto;
+    overscroll-behavior:contain;
+    border-radius:22px;
+    padding:20px 16px 24px;
+    background:#e6ddce;
+    color:#382e25;
+    box-shadow:0 20px 75px #0009;
+}
+
+.cart-line {
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:14px 0;
+    border-bottom:1px solid #cbbca7;
+}
+
+.cart-photo {
+    width:78px;
+    height:78px;
+    border-radius:12px;
+    object-fit:cover;
+    flex:none;
+}
+
+.cart-details {
+    flex:1;
+    min-width:0;
+}
+
+.cart-details strong {
+    display:block;
+    font-size:13px;
+    line-height:1.5;
+}
+
+.cart-details small {
+    display:block;
+    font-size:13px;
+    color:#916b3c;
+    margin-top:2px;
+    font-weight:700;
+}
+
+.cart-actions {
+    display:flex;
+    align-items:center;
+    gap:9px;
+    margin-top:8px;
+    direction:ltr;
+    justify-content:flex-start;
+}
+
+.cart-actions button {
+    height:30px;
+    width:30px;
+    border-radius:50%;
+    font-size:17px;
+    font-weight:700;
+    background:#f7eddf;
+    color:#553b1f;
+    border:1px solid #c9b69c;
+}
+
+.cart-actions .remove {
+    margin-left:auto;
+    margin-right:0;
+    width:auto;
+    height:29px;
+    padding:0 10px;
+    border-radius:16px;
+    font-size:11px;
+}
+
+.cart-quantity {
+    font-weight:800;
+    min-width:20px;
+    text-align:center;
+    color:#382e25;
+}
+
+.total-row {
+    margin-top:20px;
+    padding:16px 12px;
+    border-radius:12px;
+    background:#d9c8ad;
+    align-items:center;
+}
+
+@media(min-width:391px) {
+    .drawer {
+        position:fixed;
+        inset:0;
+        max-width:none;
+        left:0;
+        right:0;
+        transform:none;
+    }
+
+    .drawer-panel {
+        max-width:390px;
+    }
+
+}
+
+@media(max-width:420px) {
+    .drawer {
+        align-items:flex-end;
+    }
+
+    .drawer-panel {
+        width:100%;
+        max-width:390px;
+        max-height:92dvh;
+        border-radius:24px 24px 0 0;
+    }
+
+}
+
+/* LIWAN refined cart: no visible scrollbar; elegant product tiles */
+.drawer-panel {
+    scrollbar-width:none;
+    -ms-overflow-style:none;
+    border:1px solid #d3c2a8;
+    background:linear-gradient(160deg,#f1e9dc 0%,#e6ddce 100%);
+    box-shadow:0 24px 90px #000a;
+}
+
+.drawer-panel::-webkit-scrollbar {
+    display:none;
+    width:0;
+    height:0;
+}
+
+.drawer-title {
+    position:sticky;
+    top:-20px;
+    z-index:2;
+    background:#eee5d7;
+    padding:12px 4px 16px;
+    margin:-8px -2px 6px;
+    border-radius:12px 12px 0 0;
+}
+
+.drawer-title h2 {
+    font-size:21px;
+    letter-spacing:-.3px;
+}
+
+.cart-line {
+    padding:16px 3px;
+    gap:13px;
+    min-height:112px;
+}
+
+.cart-photo {
+    width:86px;
+    height:86px;
+    border-radius:14px;
+    border:1px solid #d7c4a9;
+    box-shadow:0 3px 12px #8b6b4020;
+}
+
+.cart-details strong {
+    font-size:13px;
+    line-height:1.6;
+    color:#312419;
+}
+
+.cart-details small {
+    font-size:13px;
+    color:#a47435;
+}
+
+.cart-actions {
+    gap:10px;
+    margin-top:10px;
+}
+
+.cart-actions button {
+    width:32px;
+    height:32px;
+    border:1px solid #c9b08b;
+    background:#fbf6ed;
+    box-shadow:0 1px 3px #0001;
+}
+
+.cart-actions .remove {
+    border-color:#e0c5b7;
+    background:#f9eee7;
+    color:#a85d4b;
+}
+
+.cart-quantity {
+    font-size:14px;
+}
+
+.note-label {
+    margin-top:22px;
+}
+
+.total-row {
+    background:#f7efe2;
+    border:1px solid #d5c2a3;
+    padding:17px 15px;
+    border-radius:15px;
+}
+
+.whatsapp {
+    background:#ad8249;
+    box-shadow:0 5px 15px #7c552e30;
+    border-radius:13px;
+}
+
+@media(max-width:420px) {
+    .drawer-panel {
+        max-height:94dvh;
+    }
+
+}
+
+/* =========================================
+   SEARCH RESULT CATEGORY LINK
+========================================= */
+
+.section-jump {
+    display: block;
+    padding: 4px 0;
+    border: 0;
+    background: transparent;
+    color: #b5a18a;
+    font-size: 10px;
+    text-align: right;
+}
+
+
+/* =========================================
+   LIWAN - PERFORMANCE & SUBTLE MOTION
+   Existing palette and layouts are preserved.
+========================================= */
+
+/* Paint off-screen cards only when needed, without changing their layout. */
+.item {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 245px;
+    transition: border-color .22s ease, box-shadow .22s ease, transform .22s ease;
+}
+
+.item-photo {
+    aspect-ratio: 16 / 7;
+    background: #292522;
+}
+
+.tab, .add, .cart-top, .whatsapp, .menu-toggle, .cart-actions button {
+    transition: transform .18s ease, background-color .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+
+.tab:active, .add:active, .cart-top:active, .whatsapp:active,
+.cart-actions button:active {
+    transform: scale(.95);
+}
+
+.tab.active {
+    box-shadow: 0 3px 14px rgba(211,177,111,.14);
+}
+
+#home:not([hidden]) .heading,
+#home:not([hidden]) .search-wrap,
+#home:not([hidden]) .tabs,
+#home:not([hidden]) .section-head {
+    animation: liwan-rise .38s ease both;
+}
+
+#home:not([hidden]) .search-wrap { animation-delay: .05s; }
+#home:not([hidden]) .tabs { animation-delay: .09s; }
+#home:not([hidden]) .section-head { animation-delay: .12s; }
+
+.splash-logo {
+    animation: liwan-logo-in .7s cubic-bezier(.2,.8,.2,1) both;
+}
+
+.splash-center {
+    animation: liwan-rise .65s .12s ease both;
+}
+
+.drawer:not([hidden]) .drawer-panel {
+    animation: liwan-drawer-in .26s cubic-bezier(.2,.8,.2,1) both;
+}
+
+@keyframes liwan-rise {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes liwan-logo-in {
+    from { opacity: 0; transform: translate(-50%, -9px) scale(.96); }
+    to { opacity: 1; transform: translate(-50%, 0) scale(1); }
+}
+
+@keyframes liwan-drawer-in {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (hover:hover) and (pointer:fine) {
+    .item:hover { border-color: #9b7b50; box-shadow: 0 7px 22px #0006; }
+    .add:hover { transform: translateY(-2px); }
+}
+
+@media (prefers-reduced-motion:reduce) {
+    .splash-logo, .splash-center, .drawer:not([hidden]) .drawer-panel,
+    #home:not([hidden]) .heading, #home:not([hidden]) .search-wrap,
+    #home:not([hidden]) .tabs, #home:not([hidden]) .section-head {
+        animation: none !important;
+    }
+    .item, .tab, .add, .cart-top, .whatsapp, .menu-toggle,
+    .cart-actions button { transition: none !important; }
+}
+
+
+/* ================================================
+   LIWAN · EMERALD SIGNATURE EDITION
+   Visual-only layer. Original image paths, menu data,
+   prices, cart logic and WhatsApp are untouched.
+================================================ */
+:root {
+    --bg: #091411;
+    --card: #14201c;
+    --gold: #d7ad63;
+    --cream: #fff0d3;
+    --muted: #b6b5a8;
+}
+html, body { background: #050c0a; }
+.phone { background: #091411; }
+#home { background: radial-gradient(ellipse 95% 270px at 95% 120px, #1b3428 0%, transparent 85%), linear-gradient(180deg, #0c1c16, #07100e 70%); }
+.header { background: linear-gradient(135deg, #091713, #0c1b15); border-bottom: 1px solid #8e714654; }
+.header-logo { filter: drop-shadow(0 2px 9px #c39b4b24); }
+.heading { padding-top: 18px; padding-bottom: 19px; text-align: center; }
+.heading p { color: #d3ad71; font-size: 12px; letter-spacing: .2px; }
+.heading h1 { font-size: 26px; color: #fff1d8; letter-spacing: -.5px; }
+.heading::after { content: '✧ ───── ✧'; display: block; color: #d7ad63; font-size: 12px; letter-spacing: 3px; margin-top: 7px; opacity: .8; }
+.search-wrap { background: linear-gradient(120deg,#1b2823,#1b2421); border: 1px solid #77634791; border-radius: 19px; box-shadow: inset 0 1px #ffffff0b, 0 10px 25px #0002; }
+.search-wrap input { color: #fff3df; }
+.search-wrap input::placeholder { color: #b2aca0; }
+.search-wrap span { color: #e0b86e; }
+.tabs { padding-top: 2px; padding-bottom: 19px; gap: 9px; }
+.tab { background: #16231e; border: 1px solid #4d584c; color: #efe7d8; border-radius: 22px; padding: 10px 15px; }
+.tab.active { background: linear-gradient(140deg,#edca83,#c99c4e); border-color: #efca80; color: #241a0c; box-shadow: 0 5px 18px #d7ad632e; }
+.section-head { padding-top: 8px; padding-bottom: 13px; }
+.section-head h2 { color: #fff1dc; font-size: 19px; }
+.section-head small { color: #e3bd7c; }
+.item { background: linear-gradient(145deg,#18251f,#111b18); border: 1px solid #89735188; border-radius: 19px; box-shadow: 0 10px 25px #0004; overflow: hidden; }
+.item-photo { height: 163px; aspect-ratio: auto; background: #17221c; }
+.item-body { padding: 14px; }
+.item-info h3 { color: #fff0d9; font-size: 14px; }
+.item-info p { color: #edc078; font-size: 15px; }
+.add { background: linear-gradient(135deg,#edc77d,#c99d53); color: #1c170e; border: 1px solid #f2d08c; border-radius: 12px; box-shadow: 0 5px 12px #0003; }
+.menu-toggle span { background: #e6c17c; }
+.cart-top { background: #17261e; border: 1px solid #cba15d; color: #edc47f; }
+.cart-top span { background: #e7bf78; color: #21180e; }
+.menu-panel { background: #16241e; border-color: #93784c; }
+.menu-panel button { color: #f9ecd7; }
+.toast { background: #f0dfbd; border-color: #d7ad63; }
+.footnote { color: #ab987b; }
+/* Keep the cart light, but make it warmer and more refined. */
+.drawer-panel { background: linear-gradient(165deg,#f8f0e3,#eae0d0); border: 1px solid #e2d0b1; box-shadow: 0 -18px 55px #0008; }
+.drawer-title { border-bottom-color: #d8c5a7; }
+.drawer-kicker { color: #ad7941; }
+.drawer-title h2 { color: #302316; }
+.cart-line { border-bottom-color: #d6c5ad; }
+.cart-photo { border-radius: 13px; border: 1px solid #d7c2a3; }
+.cart-details strong { color: #352819; }
+.cart-details small { color: #a06d32; }
+.cart-actions button { background: #fff8ed; border-color: #cdb28b; color: #4b3420; border-radius: 50%; }
+.cart-actions .remove { border-radius: 12px; background: #fff1eb; color: #a64d3c; }
+.total-row { background: #fff8eb; border: 1px solid #ddc49d; border-radius: 16px; color: #4d3822; }
+.total-row strong:last-child { color: #926129; }
+.whatsapp { background: linear-gradient(110deg,#163c28,#23673c); color: #fff7e8; border-radius: 16px; box-shadow: 0 9px 22px #17462b2e; }
+.whatsapp:disabled { box-shadow: none; }
+.site-help { color: #83735f; }
+/* Cinematic splash uses the ORIGINAL background photo. */
+.splash { background-image: linear-gradient(180deg,#02090665 0%,#00000015 35%,#02090655 59%,#020906e8 100%), url('images/welcome.webp'); }
+.splash-logo { filter: drop-shadow(0 5px 15px #0008); }
+.splash-center { bottom: 8%; }
+.splash-center p { color: #f4dfb5; }
+.splash-center h1 { color: #fff0d6; font-size: 36px; line-height: 1.52; text-shadow: 0 4px 18px #000b; }
+.splash-center em { color: #e6b967; }
+.splash-center button { border: 1px solid #e6b967; border-radius: 17px; background: #08150f9e; color: #fff2d9; box-shadow: 0 0 0 1px #e6b96733, 0 10px 30px #0005; }
+@media (hover: hover) and (pointer: fine) {
+    .item:hover { border-color: #e3b66c; transform: translateY(-2px); box-shadow: 0 12px 30px #0008; }
+    .whatsapp:hover { filter: brightness(1.08); }
+}
+@media (prefers-reduced-motion: reduce) { .item:hover { transform: none; } }
+
+
+/* ============================================================
+   LIWAN · SIGNATURE FINISH
+   Polished emerald / champagne identity and lightweight motion.
+   No existing image path or product information is changed.
+   All animations respect reduced-motion preferences.
+============================================================ */
+:root { --liwan-champagne: #e7c58a; --liwan-emerald: #0b1c17; }
+html { scroll-behavior: smooth; }
+body.cart-is-open { overflow: hidden; }
+.phone { isolation: isolate; }
+.reading-progress {
+    position: fixed; z-index: 120; top: 0; left: 50%; width: min(100%, 390px);
+    height: 2px; transform: scaleX(0); transform-origin: right center;
+    background: linear-gradient(90deg, #9e753f, #f5dba1, #b88647);
+    pointer-events: none;
+}
+.header { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+.heading { position: relative; }
+.heading p { letter-spacing: .7px; }
+.heading::after { content: '✦  ─────  ✦'; letter-spacing: 2px; }
+.search-wrap { transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease; }
+.search-wrap:focus-within {
+    border-color: #e2bd79;
+    box-shadow: 0 0 0 3px #d7ad631b, 0 12px 30px #0003;
+    transform: translateY(-1px);
+}
+.tab { transition: background .22s ease, border-color .22s ease, transform .22s ease, box-shadow .22s ease; }
+.tab:active { transform: scale(.95); }
+.item { position: relative; transition: transform .28s ease, box-shadow .28s ease, border-color .28s ease; }
+.item::after {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    border-radius: inherit; box-shadow: inset 0 1px #fff9;
+}
+.item-photo { opacity: .65; transition: opacity .35s ease, transform .6s ease; }
+.item-photo.image-ready { opacity: 1; }
+.reveal-card { opacity: 0; transform: translateY(18px); }
+.reveal-card.is-visible { opacity: 1; transform: translateY(0); transition: opacity .42s ease, transform .42s cubic-bezier(.2,.8,.2,1), border-color .25s, box-shadow .25s; }
+.add { transition: transform .18s ease, box-shadow .18s ease, filter .18s ease; }
+.add:active { transform: scale(.9); }
+.add.add-pop { animation: liwan-add-pop .34s cubic-bezier(.2,.8,.3,1.4); }
+.cart-top.cart-celebrate { animation: liwan-cart-bounce .42s ease; }
+.cart-top span { transition: transform .2s ease; }
+.drawer-panel { border-radius: 26px 26px 0 0; }
+.drawer:not([hidden]) .drawer-shade { animation: liwan-shade-in .26s ease both; }
+.drawer:not([hidden]) .drawer-panel { animation: liwan-panel-rise .38s cubic-bezier(.2,.8,.2,1) both; }
+.whatsapp { transition: transform .22s ease, filter .22s ease, box-shadow .22s ease; }
+.whatsapp:not(:disabled):active { transform: scale(.98); }
+.closing-note { text-align: center; color: #b9a07c; font-size: 11px; letter-spacing: .2px; padding: 16px 12px 4px; }
+.closing-note span { color: #d9b575; padding: 0 5px; }
+.splash::after {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(ellipse at 50% 62%, transparent 40%, #0005 100%);
+}
+.splash-logo, .splash-center { z-index: 1; }
+.splash-center p { font-size: 12px; letter-spacing: 1px; font-weight: 700; }
+.splash-center h1 { font-size: clamp(30px, 8vw, 38px); line-height: 1.5; }
+.splash-center button { transition: transform .22s ease, background .22s ease, border-color .22s ease; }
+.splash-center button:active { transform: scale(.98); }
+@keyframes liwan-add-pop { 0%{transform:scale(1)} 45%{transform:scale(1.16)} 100%{transform:scale(1)} }
+@keyframes liwan-cart-bounce { 0%,100%{transform:translateY(0)} 45%{transform:translateY(-5px)} }
+@keyframes liwan-shade-in { from{opacity:0} to{opacity:1} }
+@keyframes liwan-panel-rise { from{opacity:.5;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+@media (hover:hover) and (pointer:fine) {
+    .item:hover .item-photo { transform: scale(1.025); }
+    .add:hover { filter: brightness(1.1); box-shadow: 0 6px 18px #d7ad6340; }
+    .whatsapp:not(:disabled):hover { transform: translateY(-2px); }
+}
+@media (prefers-reduced-motion:reduce) {
+    html { scroll-behavior: auto; }
+    .reveal-card, .reveal-card.is-visible { opacity: 1; transform: none; transition: none; }
+    .item-photo, .add, .cart-top, .whatsapp, .search-wrap, .tab, .splash-center button { animation: none !important; transition: none !important; }
+    .drawer:not([hidden]) .drawer-shade, .drawer:not([hidden]) .drawer-panel { animation: none !important; }
+}
+
+/* Compact menu header: search begins directly below the logo. */
+#home .search-wrap {
+    margin-top: 14px;
+    margin-bottom: 13px;
+}
+#home .tabs {
+    padding-bottom: 10px;
+}
+#home .section-head {
+    padding-top: 3px;
+    padding-bottom: 10px;
+}
+
+/* LIWAN contact details: directly below the header logo. */
+.liwan-contact {
+    padding: 9px 12px 10px;
+    text-align: center;
+    background: #0a1914;
+    border-bottom: 1px solid rgba(211, 177, 111, .2);
+    line-height: 1.6;
+}
+.liwan-contact-address {
+    color: #f3e7d4;
+    font-size: 11px;
+    font-weight: 700;
+}
+.liwan-contact-detail {
+    color: #c4b8a5;
+    font-size: 10px;
+}
+.liwan-contact-phone {
+    display: inline-block;
+    color: #d3b16f;
+    font-size: 12px;
+    font-weight: 800;
+    text-decoration: none;
+    direction: ltr;
+}
+.liwan-contact-phone:focus-visible {
+    outline: 2px solid #d3b16f;
+    outline-offset: 3px;
+}
+
+/* Keep new items visually consistent with the original gold + buttons. */
+.add:disabled { opacity: 1; cursor: not-allowed; background: #c69d55; color: #fff; }
+/* زر الإضافة الذهبي مع علامة + غامقة */
+.item .add,
+.item .add:disabled {
+    color: #1d2119 !important;
+    -webkit-text-fill-color: #1d2119 !important;
+}
